@@ -57,8 +57,9 @@ function makeTexture(THREE, kind, seed = 91) {
 }
 
 function startScene(THREE) {
-  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: 'low-power' });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.65));
+  const compactDevice = window.matchMedia('(max-width: 700px)').matches || (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4);
+  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: !compactDevice, powerPreference: 'low-power' });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, compactDevice ? 1.2 : 1.65));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.12;
@@ -75,7 +76,7 @@ function startScene(THREE) {
   const sun = new THREE.DirectionalLight(0xffe4bd, 3.1);
   sun.position.set(-4.5, 8.5, 6.5);
   sun.castShadow = true;
-  sun.shadow.mapSize.set(1024, 1024);
+  sun.shadow.mapSize.set(compactDevice ? 512 : 1024, compactDevice ? 512 : 1024);
   sun.shadow.camera.left = -6; sun.shadow.camera.right = 6;
   sun.shadow.camera.top = 8; sun.shadow.camera.bottom = -4;
   sun.shadow.bias = -.00025;
@@ -340,13 +341,26 @@ function startScene(THREE) {
   return () => { visibility.disconnect(); resizeObserver.disconnect(); renderer.dispose(); };
 }
 
-import(THREE_URL).then(startScene).catch((error) => {
-  console.error('3D construction animation could not be loaded:', error);
+function renderSceneFallback() {
   stage.classList.add('scene-unavailable');
-  const note = document.createElement('p');
-  note.className = 'scene-fallback';
-  note.textContent = 'The 3D construction scene could not start. Refresh the page or check browser compatibility.';
-  stage.append(note);
+  const art = document.createElement('div');
+  art.className = 'scene-fallback-art';
+  art.setAttribute('aria-hidden', 'true');
+  art.innerHTML = `
+    <div class="scene-fallback-sky"></div>
+    <div class="scene-fallback-ground"></div>
+    <div class="scene-fallback-scaffold scaffold-left"></div>
+    <div class="scene-fallback-scaffold scaffold-right"></div>
+    <div class="scene-fallback-wall"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="scene-fallback-plank"></div>
+    <div class="scene-fallback-worker"><i class="worker-helmet"></i><i class="worker-head"></i><i class="worker-body"></i><i class="worker-arm"></i><i class="worker-leg"></i><i class="worker-brick"></i></div>
+    <div class="scene-fallback-bucket"></div>`;
+  stage.append(art);
+}
+
+import(THREE_URL).then(startScene).catch((error) => {
+  console.warn('3D scene unavailable; showing the lightweight construction animation.', error);
+  renderSceneFallback();
 });
 
 

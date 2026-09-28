@@ -3,7 +3,7 @@
     en: {
       "nav.home": "Home", "nav.services": "Services", "nav.projects": "Our work",
       "nav.pricing": "Pricing", "nav.about": "About",
-      "nav.contact": "Contact", "nav.quote": "Request a quote", "nav.switch": "اردو",
+      "nav.contact": "Contact", "nav.quote": "Request a quote", "nav.open": "Open navigation", "nav.close": "Close navigation", "nav.switch": "اردو",
       "theme.night": "Night mode", "theme.day": "Light mode",
       "footer.tagline": "Construction, finishing and completed-house sales in Lahore.",
       "footer.explore": "Explore", "footer.contact": "Contact MAK & SONS",
@@ -393,13 +393,14 @@
             <img src="/assets/images/brand/crest-transparent.png" alt="" width="72" height="72">
             <span class="brand-words"><strong>MAK & SONS</strong><small>CONSTRUCTION</small></span>
           </a>
-          <nav class="main-nav" aria-label="Primary navigation" data-main-nav>
+          <nav class="main-nav" id="primary-navigation" aria-label="Primary navigation" data-main-nav>
             ${navItems.map(([id, href, key]) => `<a href="/${href}" data-i18n="${key}"${pageName === id ? ' aria-current="page"' : ""}></a>`).join("")}
             <a class="nav-quote" href="/contact.html" data-i18n="nav.quote"></a>
           </nav>
           <div class="header-actions">
             <button class="lang-toggle" type="button" data-lang-toggle aria-label="Switch language"><span data-i18n="nav.switch"></span></button>
             <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false"><span class="theme-icon" aria-hidden="true">☾</span><span data-theme-label></span></button>
+            <button class="menu-toggle" type="button" data-menu-toggle aria-controls="primary-navigation" aria-expanded="false" data-i18n-aria="nav.open" aria-label="Open navigation"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg><span class="sr-only" data-i18n="nav.open">Open navigation</span></button>
           </div>
         </div>`;
     }
@@ -447,6 +448,33 @@
     });
   }
 
+  function initMobileNavigation() {
+    const header = document.querySelector("[data-site-header]");
+    const nav = header?.querySelector("[data-main-nav]");
+    const toggle = header?.querySelector("[data-menu-toggle]");
+    if (!header || !nav || !toggle) return;
+    const close = () => {
+      nav.classList.remove("is-open");
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.dataset.i18nAria = "nav.open";
+      toggle.setAttribute("aria-label", t("nav.open"));
+      const hiddenLabel = toggle.querySelector("[data-i18n]");
+      if (hiddenLabel) hiddenLabel.textContent = t("nav.open");
+    };
+    toggle.addEventListener("click", () => {
+      const open = toggle.getAttribute("aria-expanded") !== "true";
+      nav.classList.toggle("is-open", open);
+      toggle.setAttribute("aria-expanded", String(open));
+      toggle.dataset.i18nAria = open ? "nav.close" : "nav.open";
+      toggle.setAttribute("aria-label", t(open ? "nav.close" : "nav.open"));
+      const hiddenLabel = toggle.querySelector("[data-i18n]");
+      if (hiddenLabel) hiddenLabel.textContent = t(open ? "nav.close" : "nav.open");
+    });
+    nav.addEventListener("click", event => { if (event.target.closest("a")) close(); });
+    document.addEventListener("keydown", event => { if (event.key === "Escape") close(); });
+    document.addEventListener("pointerdown", event => { if (!header.contains(event.target)) close(); });
+    window.matchMedia("(min-width: 821px)").addEventListener("change", close);
+  }
   function initTheme() {
     syncThemeControl();
     document.querySelectorAll("[data-theme-toggle]").forEach(btn => btn.addEventListener("click", () => {
@@ -608,7 +636,7 @@
   document.addEventListener("DOMContentLoaded", () => {
     renderShell();
     applyLanguage(currentLang);
-    initTheme(); initCookies(); initForm(); initThankYou(); initGallery(); initCopyLink(); initScrollReveal();
+    initTheme(); initMobileNavigation(); initCookies(); initForm(); initThankYou(); initGallery(); initCopyLink(); initScrollReveal();
     document.querySelectorAll("[data-lang-toggle]").forEach(btn => btn.addEventListener("click", () => applyLanguage(currentLang === "en" ? "ur" : "en")));
   });
 })();
