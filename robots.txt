@@ -1,0 +1,4 @@
+# Staging only: keep preview deployments out of search results.
+# Run `node scripts/set-domain.mjs https://your-custom-domain` after the domain is connected.
+User-agent: *
+Disallow: /
