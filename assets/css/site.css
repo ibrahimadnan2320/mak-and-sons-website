@@ -753,6 +753,7 @@ body {
 .social-links a { display: inline-flex; align-items: center; gap: 7px; text-decoration: none; }
 .social-links a:hover { color: #fff; text-decoration: underline; text-underline-offset: 4px; }
 .social-links svg { display: block; width: 18px; height: 18px; flex: 0 0 auto; fill: currentColor; }
+.social-links a:last-child svg { transform: translateY(-1px); }
 .social-links a:first-child svg { fill: none; stroke: currentColor; stroke-width: 1.8; }
 .social-links a:first-child .social-fill { fill: currentColor; stroke: none; }
 .reveal-on-scroll { opacity: 0; transform: translateY(12px); transition: opacity .48s ease, transform .48s ease; transition-delay: var(--reveal-delay, 0ms); }
@@ -1152,3 +1153,8 @@ body[data-page="home"] .hero-build-scene.scene-unavailable { position: relative;
 @keyframes worker-reach { 0%, 28%, 70%, 100% { transform: rotate(-12deg); } 42%, 56% { transform: rotate(-68deg); } }
 @keyframes worker-carry { 0%, 40%, 65%, 100% { opacity: 1; transform: translateY(0); } 50%, 58% { opacity: .15; transform: translateY(-34px); } }
 @keyframes brick-lay { 0%, 50% { opacity: .25; transform: translateY(-14px); } 65%, 100% { opacity: 1; transform: translateY(0); } }
+
+/* The 3D/WebGL scene is omitted on mobile; desktop and laptop keep the animation. */
+@media (max-width: 700px) {
+  body[data-page="home"] .hero-visual { display: none !important; }
+}

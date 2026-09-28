@@ -358,10 +358,14 @@ function renderSceneFallback() {
   stage.append(art);
 }
 
-import(THREE_URL).then(startScene).catch((error) => {
-  console.warn('3D scene unavailable; showing the lightweight construction animation.', error);
-  renderSceneFallback();
-});
+// Keep the 3D renderer off narrow mobile screens, where WebGL has been unreliable.
+// The desktop and laptop scene remains unchanged.
+if (!window.matchMedia('(max-width: 700px)').matches) {
+  import(THREE_URL).then(startScene).catch((error) => {
+    console.warn('3D scene unavailable; showing the lightweight construction animation.', error);
+    renderSceneFallback();
+  });
+}
 
 
 
