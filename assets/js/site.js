@@ -516,7 +516,11 @@
     const banner = document.querySelector("[data-cookie-banner]");
     if (!banner) return;
     const consent = localStorage.getItem("mak-cookie-consent");
-    if (!consent) banner.hidden = false;
+    const shown = localStorage.getItem("mak-cookie-banner-shown") === "true";
+    if (!consent && !shown) {
+      banner.hidden = false;
+      localStorage.setItem("mak-cookie-banner-shown", "true");
+    }
     document.querySelectorAll("[data-cookie-accept]").forEach(btn => btn.addEventListener("click", () => setConsent("analytics")));
     document.querySelectorAll("[data-cookie-reject]").forEach(btn => btn.addEventListener("click", () => setConsent("essential")));
     document.querySelectorAll("[data-cookie-open]").forEach(btn => btn.addEventListener("click", openCookies));
@@ -526,6 +530,7 @@
 
   function setConsent(value) {
     localStorage.setItem("mak-cookie-consent", value);
+    localStorage.removeItem("mak-cookie-banner-shown");
     const banner = document.querySelector("[data-cookie-banner]");
     if (banner) banner.hidden = true;
     if (value === "analytics") loadAnalytics();
