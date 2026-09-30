@@ -10,7 +10,7 @@ Open a terminal in this folder and run a static server, for example:
 py -m http.server 8000
 ```
 
-Then open `http://localhost:8000`. A static server is needed because the site uses root-relative asset paths.
+Then open `http://localhost:8000`. A local static server is recommended for browser module imports. Links and assets stay relative to this folder, so pages also work when the repository is hosted under a project path.
 
 ## Included pages and features
 

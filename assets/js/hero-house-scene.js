@@ -275,8 +275,7 @@ function startScene(THREE) {
   carried.castShadow = true;
 
   // Slowly reveal bricks in the new course; movement repeats and keeps the scene alive.
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let active = true, lastTime = 0, elapsed = 0, placed = 0;
+  let active = true, lastTime = 0, elapsed = 0, placed = 0, animationFrame = 0;
   const cycleSeconds = 7.2;
   const resize = () => {
     const w = Math.max(1, stage.clientWidth), h = Math.max(1, stage.clientHeight);
@@ -286,14 +285,12 @@ function startScene(THREE) {
     camera.updateProjectionMatrix(); renderer.setSize(w, h, false);
   };
   const resizeObserver = new ResizeObserver(resize); resizeObserver.observe(stage); resize();
-  const visibility = new IntersectionObserver(entries => { active = entries[0]?.isIntersecting ?? true; });
-  visibility.observe(stage);
   const animate = (now) => {
-    requestAnimationFrame(animate);
+    animationFrame = 0;
     if (document.hidden || !active) return;
-    if (now - lastTime < 30) return;
+    if (now - lastTime < 33) { schedule(); return; }
     const dt = Math.min(.05, (now - (lastTime || now)) / 1000); lastTime = now;
-    if (!reducedMotion) elapsed += dt;
+    elapsed += dt;
     const t = reducedMotion ? 0 : elapsed % cycleSeconds;
     const phase = t / cycleSeconds;
     const walkingIn = phase < .31;
@@ -335,10 +332,30 @@ function startScene(THREE) {
       placed = placementCount;
     }
     renderer.render(scene, camera);
+    schedule();
   };
-  requestAnimationFrame(animate);
+  const schedule = () => {
+    if (!animationFrame && active && !document.hidden) animationFrame = requestAnimationFrame(animate);
+  };
+  const visibility = new IntersectionObserver(entries => {
+    active = entries[0]?.isIntersecting ?? true;
+    if (active) { lastTime = 0; schedule(); }
+    else if (animationFrame) { cancelAnimationFrame(animationFrame); animationFrame = 0; }
+  });
+  const onDocumentVisibility = () => {
+    if (document.hidden) { if (animationFrame) cancelAnimationFrame(animationFrame); animationFrame = 0; }
+    else { lastTime = 0; schedule(); }
+  };
+  visibility.observe(stage);
+  document.addEventListener('visibilitychange', onDocumentVisibility);
+  schedule();
   window.addEventListener('resize', resize, { passive: true });
-  return () => { visibility.disconnect(); resizeObserver.disconnect(); renderer.dispose(); };
+  return () => {
+    visibility.disconnect(); resizeObserver.disconnect(); renderer.dispose();
+    document.removeEventListener('visibilitychange', onDocumentVisibility);
+    window.removeEventListener('resize', resize);
+    if (animationFrame) cancelAnimationFrame(animationFrame);
+  };
 }
 
 function renderSceneFallback() {
@@ -358,13 +375,19 @@ function renderSceneFallback() {
   stage.append(art);
 }
 
-// Keep the 3D renderer off narrow mobile screens, where WebGL has been unreliable.
-// The desktop and laptop scene remains unchanged.
-if (!window.matchMedia('(max-width: 700px)').matches) {
+// Use the lightweight CSS scene on phones, reduced-motion systems and low-power devices.
+const lowPowerDevice = navigator.connection?.saveData
+  || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4)
+  || (navigator.deviceMemory && navigator.deviceMemory <= 4);
+const smallScreen = window.matchMedia('(max-width: 700px)').matches;
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (!smallScreen && !lowPowerDevice && !reducedMotion) {
   import(THREE_URL).then(startScene).catch((error) => {
     console.warn('3D scene unavailable; showing the lightweight construction animation.', error);
     renderSceneFallback();
   });
+} else {
+  renderSceneFallback();
 }
 
 

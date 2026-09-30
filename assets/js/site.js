@@ -97,6 +97,8 @@
       "services.ctaTitle": "Tell us what your project needs.",
       "projects.eyebrow": "Completed projects", "projects.title": "Construction work across Lahore.",
       "projects.intro": "Browse exterior and interior photographs from completed MAK & SONS projects. Contact the team to arrange a site visit or discuss your requirements.",
+      "projects.motionEyebrow": "Design films", "projects.motionTitle": "Architecture in motion.", "projects.motionIntro": "Explore five short architectural films. Choose a frame to play; each video loads only when selected.", "projects.motionLabel": "ARCHITECTURE FILM",
+      "projects.playFilm01": "Play architectural film 01", "projects.playFilm02": "Play architectural film 02", "projects.playFilm03": "Play architectural film 03", "projects.playFilm04": "Play architectural film 04", "projects.playFilm05": "Play architectural film 05", "projects.motionError": "This film could not load. Please try again.",
       "projects.houseOneTitle": "Exterior details and interior finishes.", "projects.houseTwoTitle": "Contemporary exterior, bright interiors.", "projects.ctaTitle": "Discuss your project.",
       "homes.eyebrow": "Build and buy across Lahore", "homes.title": "Homes shaped for everyday life.",
       "homes.intro": "MAK & SONS builds houses and offers completed properties for sale. Availability changes, so contact the team for current details and viewing arrangements.",
@@ -280,6 +282,8 @@
       "services.ctaTitle": "اپنے منصوبے کی ضرورت بتائیں۔",
       "projects.eyebrow": "حقیقی کام، اصل حالت میں", "projects.title": "لاہور میں مکمل تعمیراتی سائٹس۔",
       "projects.intro": "لاہور میں مکمل شدہ کام کی بیرونی اور اندرونی تصاویر دیکھیے۔ کسی سائٹ کا دورہ کرنے یا اپنے منصوبے پر بات کرنے کے لیے MAK & SONS سے وزٹ کے انتظام کی تفصیل معلوم کریں۔",
+      "projects.motionEyebrow": "ڈیزائن فلمز", "projects.motionTitle": "تعمیر کو حرکت میں دیکھیے۔", "projects.motionIntro": "فنِ تعمیر پر پانچ مختصر فلمیں دیکھیے۔ چلانے کے لیے کسی فریم کو منتخب کریں؛ ویڈیو صرف منتخب کرنے پر لوڈ ہوگی۔", "projects.motionLabel": "آرکیٹیکچر فلم",
+      "projects.playFilm01": "آرکیٹیکچر فلم 01 چلائیں", "projects.playFilm02": "آرکیٹیکچر فلم 02 چلائیں", "projects.playFilm03": "آرکیٹیکچر فلم 03 چلائیں", "projects.playFilm04": "آرکیٹیکچر فلم 04 چلائیں", "projects.playFilm05": "آرکیٹیکچر فلم 05 چلائیں", "projects.motionError": "یہ فلم لوڈ نہیں ہو سکی۔ دوبارہ کوشش کریں۔",
       "projects.houseOneTitle": "گرم رنگوں کا بیرونی حصہ، نفاست سے مکمل کمرے۔", "projects.houseTwoTitle": "جدید سرمئی فرنٹ اور پُرسکون اندرونی حصے۔", "projects.ctaTitle": "گھر بنانے کا منصوبہ ہے؟",
       "homes.eyebrow": "لاہور میں گھر بنائیں یا خریدیں", "homes.title": "روزمرہ زندگی کے لیے بنائے گئے گھر۔",
       "homes.intro": "میک اینڈ سنز مکانات تعمیر کرتا اور مکمل جائیدادیں فروخت کرتا ہے۔ دستیابی بدل سکتی ہے، تازہ تفصیلات اور وزٹ کے لیے ٹیم سے رابطہ کریں۔",
@@ -378,10 +382,10 @@
 
   function t(key) { return (copy[currentLang] && copy[currentLang][key]) || copy.en[key] || key; }
   let currentLang = localStorage.getItem("mak-lang") === "ur" ? "ur" : "en";
-  let currentTheme = sessionStorage.getItem("mak-theme") === "dark" ? "dark" : "light";
+  let currentTheme = sessionStorage.getItem("mak-theme") === "light" ? "light" : "dark";
   document.documentElement.dataset.theme = currentTheme;
   const initialThemeColor = document.querySelector('meta[name="theme-color"]');
-  if (initialThemeColor) initialThemeColor.content = currentTheme === "dark" ? "#111a20" : "#f5f3ed";
+  if (initialThemeColor) initialThemeColor.content = currentTheme === "dark" ? "#0b1013" : "#eeebe3";
 
   function renderShell() {
     const header = document.querySelector("[data-site-header]");
@@ -389,17 +393,17 @@
     if (header) {
       header.innerHTML = `
         <div class="container nav-wrap">
-          <a class="brand" href="/index.html" aria-label="MAK & Sons Construction home">
-            <img src="/assets/images/brand/crest-transparent.png" alt="" width="72" height="72">
+          <a class="brand" href="index.html" aria-label="MAK & Sons Construction home">
+            <img src="assets/images/brand/crest-transparent.png" alt="" width="72" height="72">
             <span class="brand-words"><strong>MAK & SONS</strong><small>CONSTRUCTION</small></span>
           </a>
           <nav class="main-nav" id="primary-navigation" aria-label="Primary navigation" data-main-nav>
-            ${navItems.map(([id, href, key]) => `<a href="/${href}" data-i18n="${key}"${pageName === id ? ' aria-current="page"' : ""}></a>`).join("")}
-            <a class="nav-quote" href="/contact.html" data-i18n="nav.quote"></a>
+            ${navItems.map(([id, href, key]) => `<a href="${href}" data-i18n="${key}"${pageName === id ? ' aria-current="page"' : ""}></a>`).join("")}
+            <a class="nav-quote" href="contact.html" data-i18n="nav.quote"></a>
           </nav>
           <div class="header-actions">
             <button class="lang-toggle" type="button" data-lang-toggle aria-label="Switch language"><span data-i18n="nav.switch"></span></button>
-            <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false"><span class="theme-icon" aria-hidden="true">☾</span><span data-theme-label></span></button>
+            <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false"><span class="theme-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><circle class="theme-sun" cx="12" cy="12" r="3.6"></circle><path class="theme-rays" d="M12 2.6v2M12 19.4v2M4.36 4.36l1.42 1.42m12.44 12.44 1.42 1.42M2.6 12h2m14.8 0h2M4.36 19.64l1.42-1.42M18.22 5.78l1.42-1.42"></path><path class="theme-moon" d="M20.1 15.1A8.1 8.1 0 0 1 8.9 3.9 8.5 8.5 0 1 0 20.1 15.1Z"></path></svg></span><span data-theme-label></span></button>
             <button class="menu-toggle" type="button" data-menu-toggle aria-controls="primary-navigation" aria-expanded="false" data-i18n-aria="nav.open" aria-label="Open navigation"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg><span class="sr-only" data-i18n="nav.open">Open navigation</span></button>
           </div>
         </div>`;
@@ -407,12 +411,12 @@
     if (footer) {
       footer.innerHTML = `
         <div class="footer-main container">
-          <div class="footer-brand"><a class="brand brand-footer" href="/index.html"><img src="/assets/images/brand/crest-transparent.png" alt="" width="66" height="66"><span class="brand-words"><strong>MAK & SONS</strong><small>CONSTRUCTION</small></span></a><p data-i18n="footer.tagline"></p></div>
-          <div><h2 data-i18n="footer.explore"></h2><a href="/services.html" data-i18n="nav.services"></a><a href="/projects.html" data-i18n="nav.projects"></a><a href="/pricing.html" data-i18n="nav.pricing"></a></div>
+          <div class="footer-brand"><a class="brand brand-footer" href="index.html"><img src="assets/images/brand/crest-transparent.png" alt="" width="66" height="66"><span class="brand-words"><strong>MAK & SONS</strong><small>CONSTRUCTION</small></span></a><p data-i18n="footer.tagline"></p></div>
+          <div><h2 data-i18n="footer.explore"></h2><a href="services.html" data-i18n="nav.services"></a><a href="projects.html" data-i18n="nav.projects"></a><a href="pricing.html" data-i18n="nav.pricing"></a></div>
           <div><h2 data-i18n="footer.contact"></h2><a href="tel:+923008470572">M. Adnan Khalid · +92 300 8470572</a><a href="tel:+923004262838">M. Umar Adnan · +92 300 4262838</a><a href="tel:+923218470572">M. Ibrahim Adnan · +92 321 8470572</a><a href="mailto:makandsonsconstruction@gmail.com">makandsonsconstruction@gmail.com</a></div>
           <div><h2 data-i18n="footer.coverage"></h2><p data-i18n="footer.lahore"></p><div class="social-links"><a href="https://www.instagram.com/mak_and_sons_construction?stkn=cWlyMm9samh2cmlw" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" class="social-fill"/></svg><span>Instagram</span></a><a href="https://www.facebook.com/share/19TnDXTr2Z/" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 21v-8h3l.5-3H14V8c0-.9.3-1.5 1.6-1.5H18V3.8c-.4-.1-1.3-.2-2.5-.2-2.5 0-4.2 1.5-4.2 4.3V10H8.5v3h2.8v8z"/></svg><span>Facebook</span></a><a href="https://www.threads.com/@mak_and_sons_construction" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21c-5.1 0-8.2-3.3-8.2-8.8C3.8 6.9 7 3 12 3c4.6 0 7.4 2.5 8 7.1l-3 .5C16.7 7.5 15.2 6 12 6c-3.3 0-5.2 2.4-5.2 6.2 0 3.8 1.8 5.8 5.1 5.8 2.3 0 3.6-1 3.6-2.5 0-1.2-.9-1.9-2.5-1.9-1.3 0-2 .5-2 1.3 0 .5.4.8 1 .8.6 0 1.1-.2 1.5-.7l1.5 1.7c-.8.9-1.9 1.3-3.2 1.3-2.1 0-3.5-1.2-3.5-3.1 0-2.4 1.8-4.1 4.6-4.1 3.3 0 5.7 1.8 5.7 4.6 0 3.3-2.6 5.6-6.6 5.6z"/></svg><span>Threads</span></a><a href="https://www.tiktok.com/@makand_sons_construction" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3h3c.2 2.4 1.5 3.8 4 4.1v3.2a9 9 0 0 1-4-1.4v6.3a6 6 0 1 1-6-6c.4 0 .8 0 1.2.1v3.4a3 3 0 1 0 1.8 2.8z"/></svg><span>TikTok</span></a></div></div>
         </div>
-        <div class="footer-bottom"><div class="container footer-bottom-inner"><span>© <span data-year></span> <span data-i18n="footer.copyright"></span></span><div><a href="/privacy.html" data-i18n="footer.privacy"></a><a href="/terms.html" data-i18n="footer.terms"></a><button type="button" data-cookie-open data-i18n="footer.cookies"></button></div></div></div>`;
+        <div class="footer-bottom"><div class="container footer-bottom-inner"><span>© <span data-year></span> <span data-i18n="footer.copyright"></span></span><div><a href="privacy.html" data-i18n="footer.privacy"></a><a href="terms.html" data-i18n="footer.terms"></a><button type="button" data-cookie-open data-i18n="footer.cookies"></button></div></div></div>`;
     }
     document.querySelectorAll("[data-year]").forEach(el => el.textContent = new Date().getFullYear());
   }
@@ -442,7 +446,7 @@
       const label = btn.querySelector("[data-theme-label]");
       const icon = btn.querySelector(".theme-icon");
       if (label) label.textContent = t(isDark ? "theme.day" : "theme.night");
-      if (icon) icon.textContent = isDark ? "☀" : "☾";
+      if (icon) icon.dataset.icon = isDark ? "sun" : "moon";
       btn.setAttribute("aria-label", t(isDark ? "theme.day" : "theme.night"));
       btn.setAttribute("aria-pressed", String(isDark));
     });
@@ -482,14 +486,14 @@
       document.documentElement.dataset.theme = currentTheme;
       sessionStorage.setItem("mak-theme", currentTheme);
       const meta = document.querySelector('meta[name="theme-color"]');
-      if (meta) meta.content = currentTheme === "dark" ? "#111a20" : "#f5f3ed";
+      if (meta) meta.content = currentTheme === "dark" ? "#0b1013" : "#eeebe3";
       syncThemeControl();
     }));
   }
 
   function initScrollReveal() {
     if (!("IntersectionObserver" in window) || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const selector = ".hero-copy, .hero-visual, .section-heading, .intro-grid > *, .cards-3 > *, .home-project-card, .family-block > *, .gallery-head, .gallery-grid .gallery-item, .project-feature > *, .price-ribbon, .closing-cta, .contact-grid > *, .page-hero-grid > *";
+    const selector = ".hero-copy, .hero-visual, .section-heading, .intro-grid > *, .cards-3 > *, .home-project-card, .family-block > *, .gallery-head, .gallery-grid .gallery-item, .project-feature > *, .price-ribbon, .closing-cta, .contact-grid > *, .page-hero-grid > *, .pricing-card, .details-list > details, .property-card, .availability-card, .contact-person, .process-step, .prose > *, .film-card";
     const items = [...new Set(document.querySelectorAll(selector))];
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
@@ -584,7 +588,7 @@
           const response = await fetch(endpoint, { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(payload) });
           if (!response.ok) throw new Error("Request failed");
           sessionStorage.setItem("mak-thank-you", "sent");
-          location.href = "/thank-you.html";
+          location.href = "thank-you.html";
         } catch {
           submit.disabled = false; submit.textContent = oldText; status.textContent = t("form.endpointError");
         }
@@ -594,7 +598,7 @@
       const body = encodeURIComponent(`Name: ${payload.name}\nEmail: ${payload.email}\nPhone: ${payload.phone || "Not provided"}\nService: ${payload.service || "Not selected"}\n\nProject details:\n${payload.message || ""}`);
       sessionStorage.setItem("mak-thank-you", "draft");
       window.open(`mailto:makandsonsconstruction@gmail.com?subject=${subject}&body=${body}`, "_blank", "noopener");
-      location.href = "/thank-you.html?draft=1";
+      location.href = "thank-you.html?draft=1";
     });
     form.querySelectorAll("input,select,textarea").forEach(field => field.addEventListener("input", () => errorFor(field, null)));
   }
