@@ -463,6 +463,12 @@ details[open] summary::after { transform: translateY(-50%) rotate(45deg); }
   color: var(--ink);
   transition: border-color var(--motion-fast) ease, box-shadow var(--motion-fast) ease, background var(--motion-fast) ease;
 }
+.field input, .field select {
+  height: 52px;
+  min-height: 52px;
+  padding-block: 0;
+  line-height: 1.4;
+}
 .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--warm); box-shadow: 0 0 0 4px rgba(239,184,121,.12); outline: none; }
 .field [aria-invalid="true"] { border-color: var(--danger); }
 .field-error { color: var(--danger); }
