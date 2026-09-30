@@ -699,6 +699,9 @@ body[data-page="home"] .hero-copy { max-width: min(100%, 800px); }
 
 /* Use a light veil over motion backgrounds so the light theme keeps dark text legible. */
 :root[data-theme="light"] .ambient-video-layer { background: #eeebe3; }
+:root[data-theme="light"] .ambient-video-layer video {
+  filter: saturate(.72) contrast(1.06) brightness(.62);
+}
 :root[data-theme="light"] .ambient-video-shade {
   background: linear-gradient(90deg, rgba(238,235,227,.88), rgba(238,235,227,.76) 52%, rgba(238,235,227,.62)),
     linear-gradient(0deg, rgba(238,235,227,.24), transparent 48%, rgba(238,235,227,.12));
