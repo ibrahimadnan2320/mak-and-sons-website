@@ -667,3 +667,26 @@ body::before { opacity: .28; animation-duration: 19s; }
 @keyframes blueprint-grid-drift { to { transform: translate3d(-44px,44px,0); } }
 @keyframes ambient-orbit { from { transform: translate3d(-3%,-1%,0) scale(.96); } to { transform: translate3d(3%,2%,0) scale(1.04); } }
 @media (max-width: 640px) { .ambient-video-layer video { object-position: 62% center; } .ambient-video-shade { background: linear-gradient(90deg, rgba(5,10,12,.84), rgba(5,10,12,.62)), linear-gradient(0deg, rgba(5,10,12,.44), transparent 55%, rgba(5,10,12,.25)); } }
+
+/* Raise shared background motion visibility by roughly 18% while keeping content readable. */
+body::before { opacity: .33; }
+:root[data-theme="light"] body::before { opacity: .32; }
+.hero::before, .page-hero::before { opacity: .47; }
+.hero::after {
+  border-color: rgba(239,184,121,.24);
+  box-shadow: 0 0 0 24px rgba(239,184,121,.03), 0 0 0 62px rgba(169,193,174,.03);
+}
+.page-hero::after {
+  border-color: rgba(239,184,121,.47);
+  box-shadow: 20px 22px 0 -19px rgba(239,184,121,.53), 40px 44px 0 -39px rgba(169,193,174,.50), inset 0 0 0 25px rgba(169,193,174,.03);
+}
+[data-ambient-ready="true"] .ambient-video-layer video { opacity: .68; }
+.ambient-video-layer::before { opacity: .86; }
+@keyframes ambient-orbit {
+  from { transform: translate3d(-3.6%,-1.2%,0) scale(.952); }
+  to { transform: translate3d(3.6%,2.4%,0) scale(1.048); }
+}
+
+/* The home video now fills the hero behind the original copy and calls to action. */
+body[data-page="home"] .hero-inner { grid-template-columns: minmax(0,1fr); }
+body[data-page="home"] .hero-copy { max-width: min(100%, 800px); }
