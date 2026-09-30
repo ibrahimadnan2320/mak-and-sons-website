@@ -453,7 +453,7 @@ details[open] summary::after { transform: translateY(-50%) rotate(45deg); }
 .contact-person a { overflow-wrap: anywhere; color: var(--ink); }
 .contact-person a:hover { color: var(--warm); }
 .contact-form { padding: clamp(22px,4vw,46px); }
-.field { gap: 8px; }
+.field { gap: 8px; align-content: start; }
 .field label { color: var(--ink); }
 .field input, .field select, .field textarea {
   min-height: 52px;
@@ -686,7 +686,7 @@ body::before { opacity: .33; }
   border-color: rgba(239,184,121,.47);
   box-shadow: 20px 22px 0 -19px rgba(239,184,121,.53), 40px 44px 0 -39px rgba(169,193,174,.50), inset 0 0 0 25px rgba(169,193,174,.03);
 }
-[data-ambient-ready="true"] .ambient-video-layer video { opacity: .68; }
+[data-ambient-ready="true"] .ambient-video-layer video { opacity: .82; }
 .ambient-video-layer::before { opacity: .86; }
 @keyframes ambient-orbit {
   from { transform: translate3d(-3.6%,-1.2%,0) scale(.952); }
