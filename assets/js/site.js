@@ -53,7 +53,7 @@
       "ui.house01": "1326-C Site in Central Park Housing Scheme", "ui.house02": "209-A Rehan Garden Phase 2", "ui.completed": "Completed Sites",
       "ui.galleryHint": "Select a photograph to view it larger.", "ui.noClaim": "Project details are limited to the information provided.",
       "ui.copyLink": "Copy page link", "ui.copied": "Link copied",
-      "cookie.more": "We remember your choice on this device. Analytics can be enabled after the company adds its own measurement ID.",
+      "cookie.more": "We remember your choice on this device. Allowing analytics turns on Vercel Web Analytics, plus Google Analytics once the company adds its own measurement ID.",
       "common.home": "Return to home", "common.contact": "Contact us",
       "a11y.skip": "Skip to content",
       "hero.eyebrow": "Residential construction and finishing in Lahore", "hero.title": "From structure to finished houses.",
@@ -161,7 +161,6 @@
       "pricing.scheduleGray": "Grey structure starts with a 3% advance, followed by staged payments for excavation, lean/PCC, DPC, brickwork, slabs, plaster, raw floors, exterior work and completion.",
       "pricing.scheduleFinish": "Finishing has its own milestone schedule, beginning with a 15% advance in the finishing quotation.",
       "pricing.sourceNote": "Website summary of supplied English quotations. Your signed quotation and agreement control the final scope and price.", "pricing.ctaTitle": "Need a project-specific estimate?",
-      "ui.perSqft": "per sq. ft.",
       "ui.house01": "1326-C Site in Central Park Housing Scheme", "ui.house02": "209-A Rehan Garden Phase 2", "ui.completed": "Completed Sites", "ui.galleryHint": "Select a photograph to view it larger.",
       "ui.noClaim": "Project details are limited to the information provided.", "ui.available": "Availability changes. Contact us for the latest details.",
       "thanks.eyebrow": "Thank you", "thanks.title": "Your email draft is ready.",
@@ -169,9 +168,9 @@
       "privacy.eyebrow": "Website information", "privacy.title": "Privacy policy.", "privacy.intro": "This notice explains how the website handles contact requests, saved preferences and optional analytics.",
       "privacy.collectTitle": "Information you provide", "privacy.collectText": "If you use the contact form, the form prepares an email draft addressed to makandsonsconstruction@gmail.com. The draft may include your name, email address, phone number, selected service and project message. This website does not transmit or store the draft by itself unless a company-approved form endpoint is later configured.",
       "privacy.useTitle": "How enquiry information is used", "privacy.useText": "Information sent by email or phone is used by MAK & SONS CONSTRUCTION to respond to your question, discuss a project, provide a quotation or follow up about a home. Do not include sensitive personal or financial information in a website enquiry.",
-      "privacy.storageTitle": "Site preferences and cookies", "privacy.storageText": "The language choice and cookie preference are stored in your browser. The selected theme lasts for the current tab session. Essential site functions do not require advertising cookies. Optional analytics remain off unless you allow them and the company configures its analytics measurement ID.",
-      "privacy.analyticsTitle": "Analytics", "privacy.analyticsText": "Google Analytics is not loaded unless you allow analytics and the company has configured a valid measurement ID. If enabled, Google may collect usage and device information under the settings for that property.",
-      "privacy.thirdTitle": "Third-party links", "privacy.thirdText": "This website links to social media platforms. Those platforms have their own privacy terms and may collect information when you visit them.",
+      "privacy.storageTitle": "Site preferences and cookies", "privacy.storageText": "The language choice and cookie preference are stored in your browser. The selected theme lasts for the current tab session. Essential site functions do not require advertising cookies. Optional analytics remain off unless you allow them in the cookie banner.",
+      "privacy.analyticsTitle": "Analytics", "privacy.analyticsText": "This site can use Vercel Web Analytics to count page views, and Google Analytics if the company configures a measurement ID. Neither one is loaded unless you choose “Allow analytics” in the cookie banner. Vercel Web Analytics does not use cookies and does not follow you across other websites. If Google Analytics is enabled, Google may collect usage and device information under the settings for that property.",
+      "privacy.thirdTitle": "Third-party links and content", "privacy.thirdText": "This website links to social media platforms. Those platforms have their own privacy terms and may collect information when you visit them. The moving background on some pages is a video file served from a third-party content delivery network (cloudfront.net), so your IP address and browser details reach that provider when a background video loads.",
       "privacy.rightsTitle": "Questions and requests", "privacy.rightsText": "For questions about information you have sent to the company, email makandsonsconstruction@gmail.com or call one of the numbers on the contact page.",
       "privacy.updated": "Last updated: September 2026.",
       "terms.eyebrow": "Website information", "terms.title": "Terms & conditions.", "terms.intro": "These terms explain how the website presents service, pricing and property information. A signed agreement governs work on a specific project.",
@@ -239,7 +238,7 @@
       "home.siteOneNote": "اس مکمل شدہ سائٹ کی بیرونی اور اندرونی تصاویر۔", "home.siteTwoNote": "اس مکمل شدہ سائٹ کی بیرونی اور اندرونی تصاویر۔", "ui.viewProject": "پروجیکٹ دیکھیے",
       "ui.galleryHint": "تصویر کو بڑا دیکھنے کے لیے منتخب کریں۔", "ui.noClaim": "پروجیکٹ کی تفصیل فراہم کردہ معلومات تک محدود ہے۔",
       "ui.copyLink": "صفحے کا لنک نقل کریں", "ui.copied": "لنک نقل ہو گیا",
-      "cookie.more": "ہم آپ کی پسند اسی ڈیوائس پر محفوظ رکھتے ہیں۔ کمپنی کا اپنا تجزیاتی آئی ڈی شامل ہونے کے بعد تجزیاتی ٹریکنگ فعال کی جا سکتی ہے۔",
+      "cookie.more": "ہم آپ کی پسند اسی ڈیوائس پر محفوظ رکھتے ہیں۔ اجازت دینے پر Vercel Web Analytics فعال ہوتا ہے، اور کمپنی کا اپنا measurement ID شامل ہونے کے بعد Google Analytics بھی۔",
       "common.home": "صفحۂ اول پر جائیں", "common.contact": "ہم سے رابطہ کریں",
       "a11y.skip": "مواد پر جائیں",
       "hero.eyebrow": "لاہور بھر میں رہائشی تعمیرات", "hero.title": "توجہ سے تعمیر، رہنے کے لیے مکمل گھر۔",
@@ -345,17 +344,17 @@
       "pricing.scheduleTitle": "ادائیگی کے مراحل", "pricing.scheduleIntro": "دونوں کوٹیشن میں مرحلہ وار ادائیگی درج ہے جو 100٪ بنتی ہے۔ ادائیگی تعمیراتی مرحلوں سے منسلک ہے؛ رقم دینے سے پہلے تازہ دستخط شدہ شیڈول لیں۔",
       "pricing.scheduleGray": "گرے اسٹرکچر 3٪ ایڈوانس سے شروع ہوتا ہے، پھر کھدائی، لین/PCC، DPC، دیواروں، سلیب، پلستر، کچے فرش، بیرونی کام اور تکمیل کے مراحل ہیں۔",
       "pricing.scheduleFinish": "فنشنگ کا الگ مرحلہ وار شیڈول ہے، جس میں کوٹیشن کے مطابق 15٪ ایڈوانس شامل ہے۔",
-      "pricing.sourceNote": "فراہم کردہ انگریزی کوٹیشن کا ویب سائٹ خلاصہ۔ آخری دائرۂ کار اور قیمت آپ کے دستخط شدہ کوٹیشن اور معاہدے کے مطابق ہوں گے۔",
-      "ui.perSqft": "فی مربع فٹ", "ui.house01": "1326-C سائٹ، سینٹرل پارک ہاؤسنگ اسکیم", "ui.house02": "209-A ریحان گارڈن فیز 2", "ui.completed": "مکمل شدہ سائٹس",
+      "pricing.sourceNote": "فراہم کردہ انگریزی کوٹیشن کا ویب سائٹ خلاصہ۔ آخری دائرۂ کار اور قیمت آپ کے دستخط شدہ کوٹیشن اور معاہدے کے مطابق ہوں گے۔", "pricing.ctaTitle": "اپنے منصوبے کے لیے مخصوص تخمینہ درکار ہے؟",
+      "ui.house01": "1326-C سائٹ، سینٹرل پارک ہاؤسنگ اسکیم", "ui.house02": "209-A ریحان گارڈن فیز 2", "ui.completed": "مکمل شدہ سائٹس",
       "ui.galleryHint": "تصویر کو بڑا دیکھنے کے لیے منتخب کریں۔", "ui.noClaim": "پروجیکٹ کی تفصیل فراہم کردہ معلومات تک محدود ہے۔", "ui.available": "دستیابی بدل سکتی ہے۔ تازہ معلومات کے لیے رابطہ کریں۔",
       "thanks.eyebrow": "شکریہ", "thanks.title": "آپ کا ای میل مسودہ تیار ہے۔",
       "thanks.note": "آپ کی ای میل ایپ میں منصوبے کی تفصیل کے ساتھ مسودہ کھلنا چاہیے۔ درخواست مکمل کرنے کے لیے مسودہ بھیجیں۔", "thanks.fallback": "اگر ای میل ایپ نہ کھلی ہو تو براہ راست میک اینڈ سنز کو کال یا ای میل کریں۔",
       "privacy.eyebrow": "ویب سائٹ کی معلومات", "privacy.title": "رازداری کی پالیسی۔", "privacy.intro": "یہ نوٹس بتاتا ہے کہ ویب سائٹ رابطہ درخواستوں، محفوظ ترجیحات اور اختیاری تجزیات کو کیسے سنبھالتی ہے۔",
       "privacy.collectTitle": "آپ کی فراہم کردہ معلومات", "privacy.collectText": "رابطہ فارم استعمال کرنے پر آپ کی ای میل ایپ makandsonsconstruction@gmail.com کے نام ایک مسودہ تیار کرتی ہے۔ اس میں نام، ای میل، فون نمبر، منتخب خدمت اور منصوبے کا پیغام شامل ہو سکتا ہے۔ کمپنی کی منظور شدہ فارم سروس شامل نہ ہو تو ویب سائٹ یہ مسودہ خود نہ بھیجتی ہے اور نہ محفوظ کرتی ہے۔",
       "privacy.useTitle": "درخواست کی معلومات کا استعمال", "privacy.useText": "ای میل یا فون سے بھیجی گئی معلومات میک اینڈ سنز کنسٹرکشن آپ کے سوال کے جواب، منصوبے پر بات، کوٹیشن یا گھر کے بارے میں رابطے کے لیے استعمال کرتا ہے۔ فارم میں حساس ذاتی یا مالی معلومات شامل نہ کریں۔",
-      "privacy.storageTitle": "سائٹ کی ترجیحات اور کوکیز", "privacy.storageText": "زبان اور کوکی کی ترجیح براؤزر میں محفوظ رہتی ہے۔ منتخب تھیم موجودہ ٹیب کے سیشن تک برقرار رہتا ہے۔ اشتہاری کوکیز بنیادی سائٹ فنکشن کے لیے درکار نہیں۔ اختیاری تجزیات تب تک بند رہتے ہیں جب تک آپ اجازت نہ دیں اور کمپنی اپنا اینالیٹکس آئی ڈی شامل نہ کرے۔",
-      "privacy.analyticsTitle": "تجزیاتی معلومات", "privacy.analyticsText": "Google Analytics اس وقت تک لوڈ نہیں ہوتا جب تک آپ اجازت نہ دیں اور کمپنی درست measurement ID شامل نہ کرے۔ فعال ہونے پر گوگل اس پراپرٹی کی سیٹنگز کے تحت استعمال اور ڈیوائس کی معلومات جمع کر سکتا ہے۔",
-      "privacy.thirdTitle": "تھرڈ پارٹی لنکس", "privacy.thirdText": "ویب سائٹ سوشل میڈیا پلیٹ فارمز سے لنک کرتی ہے۔ ان پلیٹ فارمز کی اپنی رازداری کی شرائط ہیں اور وہ آپ کے وزٹ پر معلومات جمع کر سکتے ہیں۔",
+      "privacy.storageTitle": "سائٹ کی ترجیحات اور کوکیز", "privacy.storageText": "زبان اور کوکی کی ترجیح براؤزر میں محفوظ رہتی ہے۔ منتخب تھیم موجودہ ٹیب کے سیشن تک برقرار رہتا ہے۔ اشتہاری کوکیز بنیادی سائٹ فنکشن کے لیے درکار نہیں۔ اختیاری تجزیات تب تک بند رہتے ہیں جب تک آپ کوکی بینر میں اجازت نہ دیں۔",
+      "privacy.analyticsTitle": "تجزیاتی معلومات", "privacy.analyticsText": "یہ سائٹ صفحات کی گنتی کے لیے Vercel Web Analytics استعمال کر سکتی ہے، اور کمپنی measurement ID شامل کرے تو Google Analytics بھی۔ دونوں میں سے کوئی بھی اس وقت تک لوڈ نہیں ہوتا جب تک آپ کوکی بینر میں ”تجزیاتی کوکیز کی اجازت دیں“ منتخب نہ کریں۔ Vercel Web Analytics کوکیز استعمال نہیں کرتا اور دوسری ویب سائٹس پر آپ کا تعاقب نہیں کرتا۔ Google Analytics فعال ہو تو گوگل اس پراپرٹی کی سیٹنگز کے تحت استعمال اور ڈیوائس کی معلومات جمع کر سکتا ہے۔",
+      "privacy.thirdTitle": "تھرڈ پارٹی لنکس اور مواد", "privacy.thirdText": "ویب سائٹ سوشل میڈیا پلیٹ فارمز سے لنک کرتی ہے۔ ان پلیٹ فارمز کی اپنی رازداری کی شرائط ہیں اور وہ آپ کے وزٹ پر معلومات جمع کر سکتے ہیں۔ بعض صفحات کا متحرک پس منظر ایک ویڈیو فائل ہے جو تھرڈ پارٹی کنٹینٹ ڈیلیوری نیٹ ورک (cloudfront.net) سے آتی ہے، اس لیے ویڈیو لوڈ ہوتے وقت آپ کا آئی پی ایڈریس اور براؤزر کی تفصیل اس فراہم کنندہ تک پہنچتی ہے۔",
       "privacy.rightsTitle": "سوالات اور درخواستیں", "privacy.rightsText": "کمپنی کو بھیجی گئی معلومات کے بارے میں سوال کے لیے makandsonsconstruction@gmail.com پر ای میل کریں یا رابطہ صفحے پر دیے گئے نمبر پر کال کریں۔",
       "privacy.updated": "آخری تازہ کاری: ستمبر 2026۔",
       "terms.eyebrow": "ویب سائٹ کی معلومات", "terms.title": "شرائط و ضوابط۔", "terms.intro": "یہ شرائط ویب سائٹ پر خدمات، قیمتوں اور جائیداد سے متعلق معلومات کی وضاحت کرتی ہیں۔ کسی مخصوص منصوبے پر کام کے لیے دستخط شدہ معاہدہ لاگو ہوگا۔",
@@ -370,14 +369,15 @@
     }
   };
 
+  // Root-absolute so the shell also resolves correctly on 404.html, which the host
+  // serves for arbitrary unmatched paths. Home points at "/" to match the canonical URL.
   const navItems = [
-    ["home", "index.html", "nav.home"], ["services", "services.html", "nav.services"],
-    ["projects", "projects.html", "nav.projects"], ["pricing", "pricing.html", "nav.pricing"],
-    ["about", "about.html", "nav.about"],
-    ["contact", "contact.html", "nav.contact"]
+    ["home", "/", "nav.home"], ["services", "/services.html", "nav.services"],
+    ["projects", "/projects.html", "nav.projects"], ["pricing", "/pricing.html", "nav.pricing"],
+    ["about", "/about.html", "nav.about"],
+    ["contact", "/contact.html", "nav.contact"]
   ];
   const config = window.SITE_CONFIG || {};
-  const path = location.pathname.split("/").pop() || "index.html";
   const pageName = document.body.dataset.page || "home";
 
   function t(key) { return (copy[currentLang] && copy[currentLang][key]) || copy.en[key] || key; }
@@ -385,7 +385,7 @@
   let currentTheme = sessionStorage.getItem("mak-theme") === "light" ? "light" : "dark";
   document.documentElement.dataset.theme = currentTheme;
   const initialThemeColor = document.querySelector('meta[name="theme-color"]');
-  if (initialThemeColor) initialThemeColor.content = currentTheme === "dark" ? "#0b1013" : "#eeebe3";
+  if (initialThemeColor) initialThemeColor.content = currentTheme === "dark" ? "#0b1114" : "#eeebe3";
 
   function renderShell() {
     const header = document.querySelector("[data-site-header]");
@@ -393,13 +393,13 @@
     if (header) {
       header.innerHTML = `
         <div class="container nav-wrap">
-          <a class="brand" href="index.html" aria-label="MAK & Sons Construction home">
-            <img src="assets/images/brand/crest-transparent.png" alt="" width="72" height="72">
+          <a class="brand" href="/" aria-label="MAK & Sons Construction home">
+            <img src="/assets/images/brand/crest-transparent.png" alt="" width="72" height="72">
             <span class="brand-words"><strong>MAK & SONS</strong><small>CONSTRUCTION</small></span>
           </a>
           <nav class="main-nav" id="primary-navigation" aria-label="Primary navigation" data-main-nav>
             ${navItems.map(([id, href, key]) => `<a href="${href}" data-i18n="${key}"${pageName === id ? ' aria-current="page"' : ""}></a>`).join("")}
-            <a class="nav-quote" href="contact.html" data-i18n="nav.quote"></a>
+            <a class="nav-quote" href="/contact.html" data-i18n="nav.quote"></a>
           </nav>
           <div class="header-actions">
             <button class="lang-toggle" type="button" data-lang-toggle aria-label="Switch language"><span data-i18n="nav.switch"></span></button>
@@ -411,12 +411,12 @@
     if (footer) {
       footer.innerHTML = `
         <div class="footer-main container">
-          <div class="footer-brand"><a class="brand brand-footer" href="index.html"><img src="assets/images/brand/crest-transparent.png" alt="" width="66" height="66"><span class="brand-words"><strong>MAK & SONS</strong><small>CONSTRUCTION</small></span></a><p data-i18n="footer.tagline"></p></div>
-          <div><h2 data-i18n="footer.explore"></h2><a href="services.html" data-i18n="nav.services"></a><a href="projects.html" data-i18n="nav.projects"></a><a href="pricing.html" data-i18n="nav.pricing"></a></div>
+          <div class="footer-brand"><a class="brand brand-footer" href="/"><img src="/assets/images/brand/crest-transparent.png" alt="" width="66" height="66"><span class="brand-words"><strong>MAK & SONS</strong><small>CONSTRUCTION</small></span></a><p data-i18n="footer.tagline"></p></div>
+          <div><h2 data-i18n="footer.explore"></h2><a href="/services.html" data-i18n="nav.services"></a><a href="/projects.html" data-i18n="nav.projects"></a><a href="/pricing.html" data-i18n="nav.pricing"></a></div>
           <div><h2 data-i18n="footer.contact"></h2><a href="tel:+923008470572">M. Adnan Khalid · +92 300 8470572</a><a href="tel:+923004262838">M. Umar Adnan · +92 300 4262838</a><a href="tel:+923218470572">M. Ibrahim Adnan · +92 321 8470572</a><a href="mailto:makandsonsconstruction@gmail.com">makandsonsconstruction@gmail.com</a></div>
-          <div><h2 data-i18n="footer.coverage"></h2><p data-i18n="footer.lahore"></p><div class="social-links"><a href="https://www.instagram.com/mak_and_sons_construction?stkn=cWlyMm9samh2cmlw" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" class="social-fill"/></svg><span>Instagram</span></a><a href="https://www.facebook.com/share/19TnDXTr2Z/" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 21v-8h3l.5-3H14V8c0-.9.3-1.5 1.6-1.5H18V3.8c-.4-.1-1.3-.2-2.5-.2-2.5 0-4.2 1.5-4.2 4.3V10H8.5v3h2.8v8z"/></svg><span>Facebook</span></a><a href="https://www.threads.com/@mak_and_sons_construction" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21c-5.1 0-8.2-3.3-8.2-8.8C3.8 6.9 7 3 12 3c4.6 0 7.4 2.5 8 7.1l-3 .5C16.7 7.5 15.2 6 12 6c-3.3 0-5.2 2.4-5.2 6.2 0 3.8 1.8 5.8 5.1 5.8 2.3 0 3.6-1 3.6-2.5 0-1.2-.9-1.9-2.5-1.9-1.3 0-2 .5-2 1.3 0 .5.4.8 1 .8.6 0 1.1-.2 1.5-.7l1.5 1.7c-.8.9-1.9 1.3-3.2 1.3-2.1 0-3.5-1.2-3.5-3.1 0-2.4 1.8-4.1 4.6-4.1 3.3 0 5.7 1.8 5.7 4.6 0 3.3-2.6 5.6-6.6 5.6z"/></svg><span>Threads</span></a><a href="https://www.tiktok.com/@makand_sons_construction" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3h3c.2 2.4 1.5 3.8 4 4.1v3.2a9 9 0 0 1-4-1.4v6.3a6 6 0 1 1-6-6c.4 0 .8 0 1.2.1v3.4a3 3 0 1 0 1.8 2.8z"/></svg><span>TikTok</span></a></div></div>
+          <div><h2 data-i18n="footer.coverage"></h2><p data-i18n="footer.lahore"></p><div class="social-links"><a href="https://www.instagram.com/mak_and_sons_construction" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" class="social-fill"/></svg><span>Instagram</span></a><a href="https://www.facebook.com/share/19TnDXTr2Z/" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 21v-8h3l.5-3H14V8c0-.9.3-1.5 1.6-1.5H18V3.8c-.4-.1-1.3-.2-2.5-.2-2.5 0-4.2 1.5-4.2 4.3V10H8.5v3h2.8v8z"/></svg><span>Facebook</span></a><a href="https://www.threads.com/@mak_and_sons_construction" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21c-5.1 0-8.2-3.3-8.2-8.8C3.8 6.9 7 3 12 3c4.6 0 7.4 2.5 8 7.1l-3 .5C16.7 7.5 15.2 6 12 6c-3.3 0-5.2 2.4-5.2 6.2 0 3.8 1.8 5.8 5.1 5.8 2.3 0 3.6-1 3.6-2.5 0-1.2-.9-1.9-2.5-1.9-1.3 0-2 .5-2 1.3 0 .5.4.8 1 .8.6 0 1.1-.2 1.5-.7l1.5 1.7c-.8.9-1.9 1.3-3.2 1.3-2.1 0-3.5-1.2-3.5-3.1 0-2.4 1.8-4.1 4.6-4.1 3.3 0 5.7 1.8 5.7 4.6 0 3.3-2.6 5.6-6.6 5.6z"/></svg><span>Threads</span></a><a href="https://www.tiktok.com/@makand_sons_construction" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3h3c.2 2.4 1.5 3.8 4 4.1v3.2a9 9 0 0 1-4-1.4v6.3a6 6 0 1 1-6-6c.4 0 .8 0 1.2.1v3.4a3 3 0 1 0 1.8 2.8z"/></svg><span>TikTok</span></a></div></div>
         </div>
-        <div class="footer-bottom"><div class="container footer-bottom-inner"><span>© <span data-year></span> <span data-i18n="footer.copyright"></span></span><div><a href="privacy.html" data-i18n="footer.privacy"></a><a href="terms.html" data-i18n="footer.terms"></a><button type="button" data-cookie-open data-i18n="footer.cookies"></button></div></div></div>`;
+        <div class="footer-bottom"><div class="container footer-bottom-inner"><span>© <span data-year></span> <span data-i18n="footer.copyright"></span></span><div><a href="/privacy.html" data-i18n="footer.privacy"></a><a href="/terms.html" data-i18n="footer.terms"></a><button type="button" data-cookie-open data-i18n="footer.cookies"></button></div></div></div>`;
     }
     document.querySelectorAll("[data-year]").forEach(el => el.textContent = new Date().getFullYear());
   }
@@ -486,7 +486,7 @@
       document.documentElement.dataset.theme = currentTheme;
       sessionStorage.setItem("mak-theme", currentTheme);
       const meta = document.querySelector('meta[name="theme-color"]');
-      if (meta) meta.content = currentTheme === "dark" ? "#0b1013" : "#eeebe3";
+      if (meta) meta.content = currentTheme === "dark" ? "#0b1114" : "#eeebe3";
       syncThemeControl();
     }));
   }
@@ -540,7 +540,19 @@
     if (value === "analytics") loadAnalytics();
   }
 
-  function loadAnalytics() {
+  // Vercel Web Analytics is loaded here rather than from a tag in each page so that
+  // no analytics request is made until the visitor allows analytics in the banner.
+  function loadVercelAnalytics() {
+    if (window.__makVercelAnalytics) return;
+    window.__makVercelAnalytics = true;
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    const script = document.createElement("script");
+    script.defer = true;
+    script.src = "/_vercel/insights/script.js";
+    document.head.append(script);
+  }
+
+  function loadGoogleAnalytics() {
     const id = config.analyticsId || "";
     if (!/^G-[A-Z0-9]+$/.test(id) || window.gtag) return;
     const script = document.createElement("script");
@@ -552,6 +564,14 @@
     window.gtag("js", new Date());
     window.gtag("config", id, { anonymize_ip: true });
   }
+
+  function loadAnalytics() {
+    loadVercelAnalytics();
+    loadGoogleAnalytics();
+  }
+
+  // Name of the decorative field in contact.html that only automated submitters fill in.
+  const HONEYPOT_FIELD = "company-website";
 
   function initForm() {
     const form = document.querySelector("[data-contact-form]");
@@ -578,6 +598,11 @@
 
       const endpoint = config.leadFormEndpoint || "";
       const payload = Object.fromEntries(data.entries());
+      // Bots fill every field they find, including the hidden one. Drop the submission
+      // without explaining why, and never forward the trap value to the endpoint.
+      const trapped = String(payload[HONEYPOT_FIELD] || "").trim().length > 0;
+      delete payload[HONEYPOT_FIELD];
+      if (trapped) { status.textContent = t("form.success"); form.reset(); return; }
       const submit = form.querySelector("[type=submit]");
       const oldText = submit.textContent;
       submit.disabled = true;
@@ -597,8 +622,15 @@
       const subject = encodeURIComponent(`Website enquiry: ${payload.service || "Project"}`);
       const body = encodeURIComponent(`Name: ${payload.name}\nEmail: ${payload.email}\nPhone: ${payload.phone || "Not provided"}\nService: ${payload.service || "Not selected"}\n\nProject details:\n${payload.message || ""}`);
       sessionStorage.setItem("mak-thank-you", "draft");
-      window.open(`mailto:makandsonsconstruction@gmail.com?subject=${subject}&body=${body}`, "_blank", "noopener");
-      location.href = "thank-you.html?draft=1";
+      // An anchor click is not treated as a popup, so blockers leave it alone. Navigating
+      // away immediately can cancel the handoff, so give the mail client a moment first.
+      const mailLink = document.createElement("a");
+      mailLink.href = `mailto:makandsonsconstruction@gmail.com?subject=${subject}&body=${body}`;
+      mailLink.rel = "noopener";
+      document.body.append(mailLink);
+      mailLink.click();
+      mailLink.remove();
+      setTimeout(() => { location.href = "thank-you.html?draft=1"; }, 900);
     });
     form.querySelectorAll("input,select,textarea").forEach(field => field.addEventListener("input", () => errorFor(field, null)));
   }

@@ -22,7 +22,9 @@ Then open `http://localhost:8000`. A local static server is recommended for brow
 - Responsive navigation, mobile sticky CTA, project photo lightbox and loading/error states for the enquiry form
 - Custom 404, thank-you, privacy policy and terms pages
 - Open Graph sharing image, favicon, per-page title and meta description
-- Consent banner and consent-gated Google Analytics 4 integration
+- `GeneralContractor` structured data on the home page for local search results
+- Consent banner gating both Vercel Web Analytics and Google Analytics 4
+- Security response headers (CSP, nosniff, frame-ancestors, Referrer-Policy, HSTS) in `vercel.json`
 - Staging `robots.txt` and sitemap placeholder
 
 ## Before launch
@@ -39,3 +41,15 @@ Then open `http://localhost:8000`. A local static server is recommended for brow
 ## Site configuration
 
 Edit `assets/js/site-config.js` to provide the real analytics measurement ID and form endpoint. Keep credentials and private keys out of this static project. The site does not publish a street address because the company asked to describe its service area as all of Lahore.
+
+## Security and privacy notes
+
+- `vercel.json` sets the security response headers. The Content-Security-Policy allowlist includes `d8j0ntlcm91z4.cloudfront.net` under `media-src` for the hero background videos. **If those video URLs ever change, update that entry or the backgrounds will be blocked.**
+- Analytics are consent-gated in `loadAnalytics()` in `assets/js/site.js`. No analytics request is made before a visitor clicks “Allow analytics”. Do not add analytics `<script>` tags back into the page `<head>`.
+- The contact form has a hidden `company-website` honeypot field. It is stripped from the payload before sending. **A receiving form service must still validate server-side and rate-limit** — the honeypot only stops naive bots.
+- The quotation PDFs and the original `PXL_*` photographs at the repository root are served publicly at the site root, e.g. `/MAK%20&%20SONS%20Finishing%20Quotation%20(English).pdf`. `vercel.json` marks PDFs `noindex` so they stay out of search results, but anyone with the URL can still download them. Move them out of this folder if that is not intended. The camera originals may also still carry EXIF location data.
+
+## Search visibility
+
+- Structured data lives in the `application/ld+json` block in `index.html`. Keep the rates, phone numbers and social profiles there in step with the rest of the site, and re-test with Google's Rich Results Test after editing.
+- After deploying, submit `sitemap.xml` in Google Search Console and create a Google Business Profile for the company — for a local contractor that profile drives far more “construction company in Lahore” traffic than on-page changes do.

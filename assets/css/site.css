@@ -1158,3 +1158,13 @@ body[data-page="home"] .hero-build-scene.scene-unavailable { position: relative;
 @media (max-width: 700px) {
   body[data-page="home"] .hero-visual { display: none !important; }
 }
+
+/* Spam trap on the contact form. Kept out of sight and out of the accessibility tree
+   rather than display:none, so automated submitters still find and fill it. */
+.form-trap {
+  position: absolute !important;
+  left: -9999px !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}

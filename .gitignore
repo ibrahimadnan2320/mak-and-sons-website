@@ -1,2 +1,8 @@
 tmp/
-tmp/
+node_modules/
+.vercel
+.claude/
+.env
+.env.*
+.DS_Store
+Thumbs.db
