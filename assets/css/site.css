@@ -749,11 +749,12 @@ body {
 .gallery-section { padding-block: 24px clamp(44px, 5.5vw, 66px); }
 .gallery-head { margin: 22px 0 10px; }
 .closing-cta { padding-block: 24px; }
-.social-links { display: flex; flex-wrap: wrap; gap: 12px 18px; }
+/* A 2-column grid rather than a wrapping flexbox, so the second column lines up
+   across rows (TikTok sits directly under Facebook) regardless of label width. */
+.social-links { display: grid; grid-template-columns: repeat(2, max-content); justify-items: start; gap: 12px 18px; }
 .social-links a { display: inline-flex; align-items: center; gap: 7px; text-decoration: none; }
 .social-links a:hover { color: #fff; text-decoration: underline; text-underline-offset: 4px; }
 .social-links svg { display: block; width: 18px; height: 18px; flex: 0 0 auto; fill: currentColor; }
-.social-links a:last-child svg { transform: translateY(-1px); }
 .social-links a:first-child svg { fill: none; stroke: currentColor; stroke-width: 1.8; }
 .social-links a:first-child .social-fill { fill: currentColor; stroke: none; }
 .reveal-on-scroll { opacity: 0; transform: translateY(12px); transition: opacity .48s ease, transform .48s ease; transition-delay: var(--reveal-delay, 0ms); }
