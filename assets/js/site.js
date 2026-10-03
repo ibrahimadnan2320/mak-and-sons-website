@@ -129,7 +129,9 @@
       "contact.familyTitle": "Contact the team", "contact.familyText": "Choose a company representative or email the shared business inbox.",
       "contact.emailLabel": "Email", "contact.serviceArea": "Service area",
       "pricing.eyebrow": "Rates from the quotations", "pricing.title": "Construction and finishing rates.", "pricing.grey": "Grey structure", "pricing.finishing": "Finishing",
-      "pricing.downloadQuotation": "Download Quotation PDF",
+      "pricing.downloadQuotation": "Download Quotation (PDF)",
+      "pricing.optEnglish": "Download English (PDF)",
+      "pricing.optUrdu": "Download Urdu (PDF)",
       "pricing.downloadEyebrow": "Official Documents",
       "pricing.downloadTitle": "Download Complete Quotation Files",
       "pricing.downloadText": "Review itemized specifications, brand allowances, payment milestones and contractual terms offline.",
@@ -326,7 +328,9 @@
       "contact.familyTitle": "ٹیم سے رابطہ", "contact.familyText": "کسی کمپنی نمائندے سے رابطے کے لیے انتخاب کریں یا مشترکہ کاروباری ای میل پر پیغام بھیجیں۔",
       "contact.emailLabel": "ای میل", "contact.serviceArea": "خدمات کا علاقہ",
       "pricing.eyebrow": "کوٹیشن کے نرخ", "pricing.title": "واضح نرخ، واضح دائرۂ کار۔", "pricing.grey": "گرے اسٹرکچر", "pricing.finishing": "فنشنگ",
-      "pricing.downloadQuotation": "سرکاری کوٹیشن ڈاؤن لوڈ کریں (پی ڈی ایف)",
+      "pricing.downloadQuotation": "کوٹیشن ڈاؤن لوڈ کریں (پی ڈی ایف)",
+      "pricing.optEnglish": "انگریزی میں ڈاؤن لوڈ کریں (PDF)",
+      "pricing.optUrdu": "اردو میں ڈاؤن لوڈ کریں (PDF)",
       "pricing.downloadEyebrow": "سرکاری دستاویزات",
       "pricing.downloadTitle": "مکمل کوٹیشن فائلیں ڈاؤن لوڈ کریں",
       "pricing.downloadText": "مٹیریل کی تفصیلات، الاؤنس، ادائیگی کے مراحل اور شرائط کا مکمل مطالعہ کریں۔",
@@ -449,9 +453,9 @@
   }
 
   const WHATSAPP_CONTACTS = [
-    { id: "adnan", name: "M. Adnan Khalid", phone: "+92 300 8470572", num: "923008470572", initials: "AK", roleKey: "whatsapp.roleAdnan" },
-    { id: "umar", name: "M. Umar Adnan", phone: "+92 300 4262838", num: "923004262838", initials: "UA", roleKey: "whatsapp.roleUmar" },
-    { id: "ibrahim", name: "M. Ibrahim Adnan", phone: "+92 321 8470572", num: "923218470572", initials: "IA", roleKey: "whatsapp.roleIbrahim" }
+    { id: "adnan", name: "M. Adnan Khalid", phone: "+92 300 8470572", num: "923008470572", initials: "AK" },
+    { id: "umar", name: "M. Umar Adnan", phone: "+92 300 4262838", num: "923004262838", initials: "UA" },
+    { id: "ibrahim", name: "M. Ibrahim Adnan", phone: "+92 321 8470572", num: "923218470572", initials: "IA" }
   ];
 
   function updateWhatsAppWidget() {
@@ -471,8 +475,6 @@
       if (link) {
         link.href = `https://wa.me/${c.num}?text=${encodeURIComponent(msg)}`;
         link.setAttribute("aria-label", `WhatsApp: ${c.name}`);
-        const role = link.querySelector("[data-contact-role]");
-        if (role) role.textContent = t(c.roleKey);
       }
     });
   }
@@ -497,7 +499,6 @@
               <div class="whatsapp-avatar"><span>${c.initials}</span><span class="online-badge"></span></div>
               <div class="whatsapp-contact-info">
                 <strong>${c.name}</strong>
-                <small data-contact-role data-i18n="${c.roleKey}">${t(c.roleKey)}</small>
                 <span class="whatsapp-contact-phone">${c.phone}</span>
               </div>
               <svg class="whatsapp-arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd"/></svg>
@@ -753,29 +754,41 @@
       submit.disabled = true;
       submit.textContent = t("form.sending");
       status.textContent = t("form.sending");
+      const sendMailto = () => {
+        const subject = encodeURIComponent(`Website enquiry: ${payload.service || "Project"}`);
+        const body = encodeURIComponent(`Name: ${payload.name}\nEmail: ${payload.email}\nPhone: ${payload.phone || "Not provided"}\nService: ${payload.service || "Not selected"}\n\nProject details:\n${payload.message || ""}`);
+        sessionStorage.setItem("mak-thank-you", "draft");
+        const mailLink = document.createElement("a");
+        mailLink.href = `mailto:makandsonsconstruction@gmail.com?subject=${subject}&body=${body}`;
+        mailLink.rel = "noopener";
+        document.body.append(mailLink);
+        mailLink.click();
+        mailLink.remove();
+        setTimeout(() => { location.href = "thank-you.html?draft=1"; }, 900);
+      };
+
       if (endpoint) {
         try {
-          const response = await fetch(endpoint, { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(payload) });
+          const bodyPayload = {
+            ...payload,
+            _subject: `New Construction Inquiry: ${payload.name} (${payload.service || "General"})`,
+            _template: "table",
+            _captcha: "false"
+          };
+          const response = await fetch(endpoint, {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "Accept": "application/json" },
+            body: JSON.stringify(bodyPayload)
+          });
           if (!response.ok) throw new Error("Request failed");
           sessionStorage.setItem("mak-thank-you", "sent");
           location.href = "thank-you.html";
         } catch {
-          submit.disabled = false; submit.textContent = oldText; status.textContent = t("form.endpointError");
+          sendMailto();
         }
         return;
       }
-      const subject = encodeURIComponent(`Website enquiry: ${payload.service || "Project"}`);
-      const body = encodeURIComponent(`Name: ${payload.name}\nEmail: ${payload.email}\nPhone: ${payload.phone || "Not provided"}\nService: ${payload.service || "Not selected"}\n\nProject details:\n${payload.message || ""}`);
-      sessionStorage.setItem("mak-thank-you", "draft");
-      // An anchor click is not treated as a popup, so blockers leave it alone. Navigating
-      // away immediately can cancel the handoff, so give the mail client a moment first.
-      const mailLink = document.createElement("a");
-      mailLink.href = `mailto:makandsonsconstruction@gmail.com?subject=${subject}&body=${body}`;
-      mailLink.rel = "noopener";
-      document.body.append(mailLink);
-      mailLink.click();
-      mailLink.remove();
-      setTimeout(() => { location.href = "thank-you.html?draft=1"; }, 900);
+      sendMailto();
     });
     form.querySelectorAll("input,select,textarea").forEach(field => field.addEventListener("input", () => errorFor(field, null)));
   }
@@ -819,10 +832,54 @@
     }));
   }
 
+  function initQuotationDropdowns() {
+    document.querySelectorAll("[data-doc-dropdown]").forEach(dropdown => {
+      const toggle = dropdown.querySelector("[data-doc-toggle]");
+      const menu = dropdown.querySelector("[data-doc-menu]");
+      if (!toggle || !menu) return;
+
+      const openMenu = () => {
+        document.querySelectorAll("[data-doc-menu]").forEach(m => {
+          if (m !== menu) {
+            m.hidden = true;
+            m.closest("[data-doc-dropdown]")?.querySelector("[data-doc-toggle]")?.setAttribute("aria-expanded", "false");
+          }
+        });
+        menu.hidden = false;
+        toggle.setAttribute("aria-expanded", "true");
+      };
+      const closeMenu = () => {
+        menu.hidden = true;
+        toggle.setAttribute("aria-expanded", "false");
+      };
+
+      toggle.addEventListener("click", event => {
+        event.stopPropagation();
+        if (menu.hidden) openMenu();
+        else closeMenu();
+      });
+
+      menu.querySelectorAll("a").forEach(a => {
+        a.addEventListener("click", () => {
+          setTimeout(closeMenu, 250);
+        });
+      });
+    });
+
+    document.addEventListener("click", event => {
+      if (!event.target.closest("[data-doc-dropdown]")) {
+        document.querySelectorAll("[data-doc-menu]").forEach(m => {
+          m.hidden = true;
+          m.closest("[data-doc-dropdown]")?.querySelector("[data-doc-toggle]")?.setAttribute("aria-expanded", "false");
+        });
+      }
+    });
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
     renderShell();
     applyLanguage(currentLang);
-    initTheme(); initMobileNavigation(); initCookies(); initForm(); initThankYou(); initGallery(); initCopyLink(); initScrollReveal();
+    initTheme(); initMobileNavigation(); initCookies(); initForm(); initQuotationDropdowns(); initThankYou(); initGallery(); initCopyLink(); initScrollReveal();
     document.querySelectorAll("[data-lang-toggle]").forEach(btn => btn.addEventListener("click", () => applyLanguage(currentLang === "en" ? "ur" : "en")));
   });
 })();

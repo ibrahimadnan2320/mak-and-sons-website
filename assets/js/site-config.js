@@ -2,5 +2,5 @@
 window.SITE_CONFIG = {
   origin: "https://mak-and-sons-construction.vercel.app",
   analyticsId: "",
-  leadFormEndpoint: ""
+  leadFormEndpoint: "https://formsubmit.co/ajax/makandsonsconstruction@gmail.com"
 };
