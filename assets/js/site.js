@@ -691,16 +691,11 @@
   }
 
   function loadGoogleAnalytics() {
-    const id = config.analyticsId || "";
-    if (!/^G-[A-Z0-9]+$/.test(id) || window.gtag) return;
-    const script = document.createElement("script");
-    script.async = true;
-    script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(id)}`;
-    document.head.append(script);
-    window.dataLayer = window.dataLayer || [];
-    window.gtag = function(){ window.dataLayer.push(arguments); };
-    window.gtag("js", new Date());
-    window.gtag("config", id, { anonymize_ip: true });
+    if (typeof window.gtag === "function") {
+      window.gtag("consent", "update", {
+        "analytics_storage": "granted"
+      });
+    }
   }
 
   function loadAnalytics() {
