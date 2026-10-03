@@ -1419,3 +1419,100 @@ body[data-page="home"] .hero-build-scene.scene-unavailable { position: relative;
   }
 }
 
+/* Quotation Download Section */
+.quotation-download-block {
+  margin-top: 36px;
+  padding: 32px 28px;
+  background: var(--paper, rgba(255, 255, 255, 0.03));
+  border: 1px solid var(--line, rgba(255, 255, 255, 0.1));
+  border-radius: 16px;
+}
+.download-block-content {
+  margin-bottom: 24px;
+}
+.download-block-content h2 {
+  font-size: 1.45rem;
+  margin: 6px 0 8px;
+}
+.download-block-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+.download-doc-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px;
+  background: var(--card, #162127);
+  border: 1px solid var(--line, rgba(255, 255, 255, 0.08));
+  border-radius: 12px;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.download-doc-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+.download-doc-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: rgba(37, 211, 102, 0.12);
+  color: #25D366;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.download-doc-icon svg {
+  width: 22px;
+  height: 22px;
+}
+.download-doc-info {
+  flex: 1;
+  min-width: 0;
+}
+.download-doc-info strong {
+  display: block;
+  font-size: 1rem;
+  margin-bottom: 3px;
+}
+.download-doc-info small {
+  display: block;
+  color: var(--muted, rgba(255, 255, 255, 0.6));
+  font-size: 0.8rem;
+  margin-bottom: 12px;
+}
+.download-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.button-sm {
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  min-height: 34px;
+  gap: 6px;
+  display: inline-flex;
+  align-items: center;
+}
+.pricing-card-footer {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line, rgba(255, 255, 255, 0.1));
+}
+.card-doc-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--gold, #d4af37);
+  text-decoration: none;
+  transition: opacity 0.18s ease;
+}
+.card-doc-link:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
