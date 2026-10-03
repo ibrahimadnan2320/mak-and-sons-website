@@ -102,24 +102,10 @@
     }));
   }
 
-  function initMobileCta() {
-    const cta = document.querySelector(".mobile-cta");
-    if (!cta) return;
-    const intro = document.querySelector("main .hero, main .page-hero");
-    if (!intro || !("IntersectionObserver" in window)) {
-      cta.classList.add("is-active");
-      return;
-    }
-    const visibility = new IntersectionObserver(([entry]) => {
-      cta.classList.toggle("is-active", !entry.isIntersecting);
-    }, { threshold: 0.01 });
-    visibility.observe(intro);
-  }
-
   document.addEventListener("DOMContentLoaded", () => {
     initScrollProgress();
     initDepthCards();
     initAmbientVideos();
-    initMobileCta();
   });
 })();
+
