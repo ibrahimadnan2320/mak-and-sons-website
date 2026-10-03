@@ -72,7 +72,7 @@
       "home.ratesText": "These per-square-foot rates come from the current quotations. The pricing page lists material allowances, extra charges and excluded work.",
       "home.workEyebrow": "Completed work", "home.workTitle": "Project gallery.",
       "home.workText": "Browse exterior and interior photographs of completed projects. Contact us to discuss the work or arrange a site visit.",
-      "home.siteOneNote": "View exterior and interior photographs from this project.", "home.siteTwoNote": "See the facade, room layouts and interior finishes.", "ui.viewProject": "View project",
+      "home.siteOneNote": "View exterior and interior photographs from this project.", "home.siteTwoNote": "View exterior and interior photographs from this project.", "ui.viewProject": "View project",
       "home.processEyebrow": "Getting started", "home.processTitle": "Agree the scope before work starts.",
       "home.processText": "Begin with the plot, covered area and work required. Confirm specifications, materials, payment stages and timing in writing before construction begins.",
       "home.step1Title": "Tell us about the plot", "home.step1Text": "Share the location, covered area and the work you need.",
@@ -572,6 +572,11 @@
 
   // Name of the decorative field in contact.html that only automated submitters fill in.
   const HONEYPOT_FIELD = "company-website";
+  // Sanitise user input – strip tags, collapse whitespace and cap length.
+  function sanitise(str, maxLen = 500) {
+    return String(str).replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim().slice(0, maxLen);
+  }
+  let lastSubmitTime = 0;
 
   function initForm() {
     const form = document.querySelector("[data-contact-form]");
@@ -585,6 +590,10 @@
     };
     form.addEventListener("submit", async event => {
       event.preventDefault();
+      // Simple rate-limit: reject rapid re-submits.
+      const now = Date.now();
+      if (now - lastSubmitTime < 5000) return;
+      lastSubmitTime = now;
       let hasError = false;
       const data = new FormData(form);
       for (const field of form.querySelectorAll("[required]")) {
@@ -597,7 +606,10 @@
       if (hasError) { status.textContent = t("form.invalid"); form.querySelector('[aria-invalid="true"]')?.focus(); return; }
 
       const endpoint = config.leadFormEndpoint || "";
-      const payload = Object.fromEntries(data.entries());
+      const raw = Object.fromEntries(data.entries());
+      // Sanitise every value before use.
+      const payload = {};
+      for (const [k, v] of Object.entries(raw)) payload[k] = sanitise(v);
       // Bots fill every field they find, including the hidden one. Drop the submission
       // without explaining why, and never forward the trap value to the endpoint.
       const trapped = String(payload[HONEYPOT_FIELD] || "").trim().length > 0;
