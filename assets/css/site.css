@@ -1625,3 +1625,89 @@ body[data-page="home"] .hero-build-scene.scene-unavailable { position: relative;
   text-decoration: underline;
 }
 
+/* Projects Gallery Filter Bar */
+.gallery-filter-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: clamp(24px, 4vw, 42px);
+}
+
+.gallery-filter-btn {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px !important;
+  padding: 10px 22px !important;
+  border-radius: 999px !important;
+  font-family: inherit;
+  font-size: 0.9rem !important;
+  font-weight: 700 !important;
+  cursor: pointer;
+  background: var(--surface-raised, #192429) !important;
+  color: var(--ink-soft, rgba(255, 255, 255, 0.75)) !important;
+  border: 1px solid var(--line, rgba(255, 255, 255, 0.16)) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.16);
+  transition: transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.22s ease !important;
+}
+
+.gallery-filter-btn:hover,
+.gallery-filter-btn:focus-visible {
+  border-color: var(--warm, #efb879) !important;
+  color: var(--warm, #efb879) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(225, 166, 109, 0.22);
+  outline: none;
+}
+
+.gallery-filter-btn.is-active {
+  background: color-mix(in srgb, var(--surface-raised, #192429) 82%, var(--warm, #efb879)) !important;
+  border-color: var(--warm, #efb879) !important;
+  color: var(--warm, #efb879) !important;
+  box-shadow: 0 6px 20px rgba(225, 166, 109, 0.28), inset 0 1px rgba(255, 255, 255, 0.12) !important;
+}
+
+.gallery-filter-btn .filter-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  background: rgba(255, 255, 255, 0.1);
+  color: inherit;
+  margin-left: 4px;
+}
+
+[dir="rtl"] .gallery-filter-btn .filter-count {
+  margin-left: 0;
+  margin-right: 4px;
+}
+
+.gallery-filter-btn.is-active .filter-count {
+  background: rgba(239, 184, 121, 0.25);
+  color: var(--warm, #efb879);
+}
+
+.project-site-group {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.project-site-group[hidden] {
+  display: none !important;
+}
+
+.project-site-group.is-visible {
+  animation: project-fade-in 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes project-fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+

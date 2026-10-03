@@ -107,6 +107,7 @@
       "projects.motionEyebrow": "Design films", "projects.motionTitle": "Architecture in motion.", "projects.motionIntro": "Explore five short architectural films. Choose a frame to play; each video loads only when selected.", "projects.motionLabel": "ARCHITECTURE FILM",
       "projects.playFilm01": "Play architectural film 01", "projects.playFilm02": "Play architectural film 02", "projects.playFilm03": "Play architectural film 03", "projects.playFilm04": "Play architectural film 04", "projects.playFilm05": "Play architectural film 05", "projects.motionError": "This film could not load. Please try again.",
       "projects.houseOneTitle": "Exterior details and interior finishes.", "projects.houseTwoTitle": "Contemporary exterior, bright interiors.", "projects.ctaTitle": "Discuss your project.",
+      "projects.filterAll": "All Sites", "projects.filterCentralPark": "Central Park (House 01)", "projects.filterRehanGarden": "Rehan Garden (House 02)",
       "homes.eyebrow": "Build and buy across Lahore", "homes.title": "Homes shaped for everyday life.",
       "homes.intro": "MAK & SONS builds houses and offers completed properties for sale. Availability changes, so contact the team for current details and viewing arrangements.",
       "homes.houseTitle": "Contemporary grey exterior, finished interiors.",
@@ -308,6 +309,7 @@
       "projects.motionEyebrow": "ڈیزائن فلمز", "projects.motionTitle": "تعمیر کو حرکت میں دیکھیے۔", "projects.motionIntro": "فنِ تعمیر پر پانچ مختصر فلمیں دیکھیے۔ چلانے کے لیے کسی فریم کو منتخب کریں؛ ویڈیو صرف منتخب کرنے پر لوڈ ہوگی۔", "projects.motionLabel": "آرکیٹیکچر فلم",
       "projects.playFilm01": "آرکیٹیکچر فلم 01 چلائیں", "projects.playFilm02": "آرکیٹیکچر فلم 02 چلائیں", "projects.playFilm03": "آرکیٹیکچر فلم 03 چلائیں", "projects.playFilm04": "آرکیٹیکچر فلم 04 چلائیں", "projects.playFilm05": "آرکیٹیکچر فلم 05 چلائیں", "projects.motionError": "یہ فلم لوڈ نہیں ہو سکی۔ دوبارہ کوشش کریں۔",
       "projects.houseOneTitle": "گرم رنگوں کا بیرونی حصہ، نفاست سے مکمل کمرے۔", "projects.houseTwoTitle": "جدید سرمئی فرنٹ اور پُرسکون اندرونی حصے۔", "projects.ctaTitle": "گھر بنانے کا منصوبہ ہے؟",
+      "projects.filterAll": "تمام سائٹس", "projects.filterCentralPark": "سینٹرل پارک (گھر 01)", "projects.filterRehanGarden": "ریحان گارڈن (گھر 02)",
       "homes.eyebrow": "لاہور میں گھر بنائیں یا خریدیں", "homes.title": "روزمرہ زندگی کے لیے بنائے گئے گھر۔",
       "homes.intro": "میک اینڈ سنز مکانات تعمیر کرتا اور مکمل جائیدادیں فروخت کرتا ہے۔ دستیابی بدل سکتی ہے، تازہ تفصیلات اور وزٹ کے لیے ٹیم سے رابطہ کریں۔",
       "homes.houseTitle": "جدید سرمئی فرنٹ، مکمل اندرونی فنشنگ۔",
@@ -782,21 +784,72 @@
     sessionStorage.removeItem("mak-thank-you");
   }
 
+  function initProjectFilters() {
+    const filterButtons = document.querySelectorAll("[data-filter]");
+    const projectGroups = document.querySelectorAll("[data-project-id]");
+    if (!filterButtons.length || !projectGroups.length) return;
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const target = btn.dataset.filter;
+
+        filterButtons.forEach(b => {
+          const isActive = b === btn;
+          b.classList.toggle("is-active", isActive);
+          b.setAttribute("aria-selected", isActive ? "true" : "false");
+        });
+
+        projectGroups.forEach(group => {
+          const match = target === "all" || group.dataset.projectId === target;
+          if (match) {
+            group.hidden = false;
+            group.classList.remove("is-visible");
+            void group.offsetWidth;
+            group.classList.add("is-visible");
+          } else {
+            group.hidden = true;
+            group.classList.remove("is-visible");
+          }
+        });
+      });
+    });
+  }
+
   function initGallery() {
     const dialog = document.querySelector("[data-lightbox]");
     if (!dialog) return;
     const image = dialog.querySelector("img");
     const caption = dialog.querySelector("[data-lightbox-caption]");
-    const items = Array.from(document.querySelectorAll("[data-gallery]"));
+    let visibleItems = [];
     let index = 0;
+
+    const getVisibleItems = () => {
+      const all = Array.from(document.querySelectorAll("[data-gallery]"));
+      return all.filter(item => {
+        const group = item.closest("[data-project-id]");
+        return !group || !group.hidden;
+      });
+    };
+
     const show = next => {
-      index = (next + items.length) % items.length;
-      const item = items[index];
+      visibleItems = getVisibleItems();
+      if (!visibleItems.length) return;
+      index = (next + visibleItems.length) % visibleItems.length;
+      const item = visibleItems[index];
       image.src = item.dataset.src;
       image.alt = item.dataset.alt;
       caption.textContent = item.dataset.alt;
     };
-    items.forEach((item, i) => item.addEventListener("click", () => { show(i); dialog.showModal(); }));
+
+    document.querySelectorAll("[data-gallery]").forEach(item => {
+      item.addEventListener("click", () => {
+        visibleItems = getVisibleItems();
+        const clickedIdx = visibleItems.indexOf(item);
+        show(clickedIdx >= 0 ? clickedIdx : 0);
+        dialog.showModal();
+      });
+    });
+
     dialog.querySelector("[data-lightbox-close]")?.addEventListener("click", () => dialog.close());
     dialog.querySelector("[data-lightbox-next]")?.addEventListener("click", () => show(index + 1));
     dialog.querySelector("[data-lightbox-previous]")?.addEventListener("click", () => show(index - 1));
@@ -867,7 +920,7 @@
   document.addEventListener("DOMContentLoaded", () => {
     renderShell();
     applyLanguage(currentLang);
-    initTheme(); initMobileNavigation(); initCookies(); initForm(); initQuotationWidgets(); initThankYou(); initGallery(); initCopyLink(); initScrollReveal();
+    initTheme(); initMobileNavigation(); initCookies(); initForm(); initQuotationWidgets(); initThankYou(); initProjectFilters(); initGallery(); initCopyLink(); initScrollReveal();
     document.querySelectorAll("[data-lang-toggle]").forEach(btn => btn.addEventListener("click", () => applyLanguage(currentLang === "en" ? "ur" : "en")));
   });
 })();
