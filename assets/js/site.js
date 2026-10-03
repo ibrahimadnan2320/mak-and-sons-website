@@ -710,6 +710,12 @@
     loadGoogleAnalytics();
   }
 
+  function trackEvent(name, params = {}) {
+    if (typeof window.gtag === "function") {
+      window.gtag("event", name, params);
+    }
+  }
+
   // Name of the decorative field in contact.html that only automated submitters fill in.
   const HONEYPOT_FIELD = "company-website";
   // Sanitise user input – strip tags, collapse whitespace and cap length.
@@ -763,6 +769,7 @@
       const subject = encodeURIComponent(`Website enquiry: ${payload.service || "Project"}`);
       const body = encodeURIComponent(`Name: ${payload.name}\nEmail: ${payload.email}\nPhone: ${payload.phone || "Not provided"}\nService: ${payload.service || "Not selected"}\n\nProject details:\n${payload.message || ""}`);
       sessionStorage.setItem("mak-thank-you", "draft");
+      trackEvent("generate_lead", { service: payload.service || "Unspecified" });
       const mailLink = document.createElement("a");
       mailLink.href = `mailto:makandsonsconstruction@gmail.com?subject=${subject}&body=${body}`;
       mailLink.rel = "noopener";
@@ -811,6 +818,8 @@
             group.classList.remove("is-visible");
           }
         });
+
+        trackEvent("select_content", { content_type: "project_filter", item_id: target });
       });
     });
   }
@@ -917,10 +926,32 @@
     });
   }
 
+  function initEventTracking() {
+    document.addEventListener("click", event => {
+      const waLink = event.target.closest(".whatsapp-contact-item");
+      if (waLink) {
+        const contactName = waLink.querySelector(".contact-name")?.textContent?.trim() || "Team Member";
+        trackEvent("contact_whatsapp", { contact_name: contactName });
+      }
+      const telLink = event.target.closest('a[href^="tel:"]');
+      if (telLink) {
+        trackEvent("phone_call_click", { phone_number: telLink.getAttribute("href").replace("tel:", "") });
+      }
+      const docLink = event.target.closest(".download-action-btn");
+      if (docLink) {
+        trackEvent("file_download", {
+          file_name: docLink.getAttribute("download") || docLink.href,
+          file_extension: "pdf",
+          card: docLink.closest(".pricing-card")?.id || "pricing"
+        });
+      }
+    });
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
     renderShell();
     applyLanguage(currentLang);
-    initTheme(); initMobileNavigation(); initCookies(); initForm(); initQuotationWidgets(); initThankYou(); initProjectFilters(); initGallery(); initCopyLink(); initScrollReveal();
+    initTheme(); initMobileNavigation(); initCookies(); initForm(); initQuotationWidgets(); initThankYou(); initProjectFilters(); initGallery(); initCopyLink(); initScrollReveal(); initEventTracking();
     document.querySelectorAll("[data-lang-toggle]").forEach(btn => btn.addEventListener("click", () => applyLanguage(currentLang === "en" ? "ur" : "en")));
   });
 })();
