@@ -130,6 +130,8 @@
       "contact.emailLabel": "Email", "contact.serviceArea": "Service area",
       "pricing.eyebrow": "Rates from the quotations", "pricing.title": "Construction and finishing rates.", "pricing.grey": "Grey structure", "pricing.finishing": "Finishing",
       "pricing.downloadQuotation": "Download Quotation (PDF)",
+      "pricing.btnEnglish": "English (PDF)",
+      "pricing.btnUrdu": "اردو (PDF)",
       "pricing.optEnglish": "Download English (PDF)",
       "pricing.optUrdu": "Download Urdu (PDF)",
       "pricing.downloadEyebrow": "Official Documents",
@@ -329,6 +331,8 @@
       "contact.emailLabel": "ای میل", "contact.serviceArea": "خدمات کا علاقہ",
       "pricing.eyebrow": "کوٹیشن کے نرخ", "pricing.title": "واضح نرخ، واضح دائرۂ کار۔", "pricing.grey": "گرے اسٹرکچر", "pricing.finishing": "فنشنگ",
       "pricing.downloadQuotation": "کوٹیشن ڈاؤن لوڈ کریں (پی ڈی ایف)",
+      "pricing.btnEnglish": "English (PDF)",
+      "pricing.btnUrdu": "اردو (PDF)",
       "pricing.optEnglish": "انگریزی میں ڈاؤن لوڈ کریں (PDF)",
       "pricing.optUrdu": "اردو میں ڈاؤن لوڈ کریں (PDF)",
       "pricing.downloadEyebrow": "سرکاری دستاویزات",
@@ -807,45 +811,54 @@
     }));
   }
 
-  function initQuotationDropdowns() {
-    document.querySelectorAll("[data-doc-dropdown]").forEach(dropdown => {
-      const toggle = dropdown.querySelector("[data-doc-toggle]");
-      const menu = dropdown.querySelector("[data-doc-menu]");
-      if (!toggle || !menu) return;
+  function initQuotationWidgets() {
+    document.querySelectorAll("[data-doc-widget]").forEach(widget => {
+      const toggle = widget.querySelector("[data-doc-toggle]");
+      const drawer = widget.querySelector("[data-doc-drawer]");
+      if (!toggle || !drawer) return;
 
-      const openMenu = () => {
-        document.querySelectorAll("[data-doc-menu]").forEach(m => {
-          if (m !== menu) {
-            m.hidden = true;
-            m.closest("[data-doc-dropdown]")?.querySelector("[data-doc-toggle]")?.setAttribute("aria-expanded", "false");
-          }
-        });
-        menu.hidden = false;
-        toggle.setAttribute("aria-expanded", "true");
-      };
-      const closeMenu = () => {
-        menu.hidden = true;
-        toggle.setAttribute("aria-expanded", "false");
+      const toggleDrawer = () => {
+        const isOpen = drawer.classList.contains("is-open");
+
+        if (!isOpen) {
+          document.querySelectorAll("[data-doc-drawer].is-open").forEach(other => {
+            if (other !== drawer) {
+              other.classList.remove("is-open");
+              other.setAttribute("aria-hidden", "true");
+              other.closest("[data-doc-widget]")?.querySelector("[data-doc-toggle]")?.setAttribute("aria-expanded", "false");
+            }
+          });
+
+          drawer.classList.add("is-open");
+          drawer.setAttribute("aria-hidden", "false");
+          toggle.setAttribute("aria-expanded", "true");
+
+          setTimeout(() => {
+            const drawerRect = drawer.getBoundingClientRect();
+            const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+            if (drawerRect.bottom > viewportHeight - 16 || drawerRect.top < 80) {
+              drawer.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            }
+          }, 140);
+        } else {
+          drawer.classList.remove("is-open");
+          drawer.setAttribute("aria-hidden", "true");
+          toggle.setAttribute("aria-expanded", "false");
+        }
       };
 
       toggle.addEventListener("click", event => {
         event.stopPropagation();
-        if (menu.hidden) openMenu();
-        else closeMenu();
-      });
-
-      menu.querySelectorAll("a").forEach(a => {
-        a.addEventListener("click", () => {
-          setTimeout(closeMenu, 250);
-        });
+        toggleDrawer();
       });
     });
 
     document.addEventListener("click", event => {
-      if (!event.target.closest("[data-doc-dropdown]")) {
-        document.querySelectorAll("[data-doc-menu]").forEach(m => {
-          m.hidden = true;
-          m.closest("[data-doc-dropdown]")?.querySelector("[data-doc-toggle]")?.setAttribute("aria-expanded", "false");
+      if (!event.target.closest("[data-doc-widget]")) {
+        document.querySelectorAll("[data-doc-drawer].is-open").forEach(drawer => {
+          drawer.classList.remove("is-open");
+          drawer.setAttribute("aria-hidden", "true");
+          drawer.closest("[data-doc-widget]")?.querySelector("[data-doc-toggle]")?.setAttribute("aria-expanded", "false");
         });
       }
     });
@@ -854,7 +867,7 @@
   document.addEventListener("DOMContentLoaded", () => {
     renderShell();
     applyLanguage(currentLang);
-    initTheme(); initMobileNavigation(); initCookies(); initForm(); initQuotationDropdowns(); initThankYou(); initGallery(); initCopyLink(); initScrollReveal();
+    initTheme(); initMobileNavigation(); initCookies(); initForm(); initQuotationWidgets(); initThankYou(); initGallery(); initCopyLink(); initScrollReveal();
     document.querySelectorAll("[data-lang-toggle]").forEach(btn => btn.addEventListener("click", () => applyLanguage(currentLang === "en" ? "ur" : "en")));
   });
 })();
