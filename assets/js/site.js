@@ -754,41 +754,16 @@
       submit.disabled = true;
       submit.textContent = t("form.sending");
       status.textContent = t("form.sending");
-      const sendMailto = () => {
-        const subject = encodeURIComponent(`Website enquiry: ${payload.service || "Project"}`);
-        const body = encodeURIComponent(`Name: ${payload.name}\nEmail: ${payload.email}\nPhone: ${payload.phone || "Not provided"}\nService: ${payload.service || "Not selected"}\n\nProject details:\n${payload.message || ""}`);
-        sessionStorage.setItem("mak-thank-you", "draft");
-        const mailLink = document.createElement("a");
-        mailLink.href = `mailto:makandsonsconstruction@gmail.com?subject=${subject}&body=${body}`;
-        mailLink.rel = "noopener";
-        document.body.append(mailLink);
-        mailLink.click();
-        mailLink.remove();
-        setTimeout(() => { location.href = "thank-you.html?draft=1"; }, 900);
-      };
-
-      if (endpoint) {
-        try {
-          const bodyPayload = {
-            ...payload,
-            _subject: `New Construction Inquiry: ${payload.name} (${payload.service || "General"})`,
-            _template: "table",
-            _captcha: "false"
-          };
-          const response = await fetch(endpoint, {
-            method: "POST",
-            headers: { "Content-Type": "application/json", "Accept": "application/json" },
-            body: JSON.stringify(bodyPayload)
-          });
-          if (!response.ok) throw new Error("Request failed");
-          sessionStorage.setItem("mak-thank-you", "sent");
-          location.href = "thank-you.html";
-        } catch {
-          sendMailto();
-        }
-        return;
-      }
-      sendMailto();
+      const subject = encodeURIComponent(`Website enquiry: ${payload.service || "Project"}`);
+      const body = encodeURIComponent(`Name: ${payload.name}\nEmail: ${payload.email}\nPhone: ${payload.phone || "Not provided"}\nService: ${payload.service || "Not selected"}\n\nProject details:\n${payload.message || ""}`);
+      sessionStorage.setItem("mak-thank-you", "draft");
+      const mailLink = document.createElement("a");
+      mailLink.href = `mailto:makandsonsconstruction@gmail.com?subject=${subject}&body=${body}`;
+      mailLink.rel = "noopener";
+      document.body.append(mailLink);
+      mailLink.click();
+      mailLink.remove();
+      setTimeout(() => { location.href = "thank-you.html?draft=1"; }, 900);
     });
     form.querySelectorAll("input,select,textarea").forEach(field => field.addEventListener("input", () => errorFor(field, null)));
   }
