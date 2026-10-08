@@ -482,7 +482,7 @@
         <div class="footer-main container">
           <div class="footer-brand"><a class="brand brand-footer" href="/"><img src="/assets/images/brand/crest-transparent.png" alt="" width="66" height="66"><span class="brand-words"><strong>MAK & SONS</strong><small>CONSTRUCTION</small></span></a><p data-i18n="footer.tagline"></p></div>
           <div><h2 data-i18n="footer.explore"></h2><a href="/services.html" data-i18n="nav.services"></a><a href="/projects.html" data-i18n="nav.projects"></a><a href="/pricing.html" data-i18n="nav.pricing"></a></div>
-          <div><h2 data-i18n="footer.contact"></h2><a href="tel:+923008470572">M. Adnan Khalid · +92 300 8470572</a><a href="tel:+923004262838">M. Umar Adnan · +92 300 4262838</a><a href="tel:+923218470572">M. Ibrahim Adnan · +92 321 8470572</a><a href="mailto:makandsonsconstruction@gmail.com">makandsonsconstruction@gmail.com</a></div>
+          <div><h2 data-i18n="footer.contact"></h2><a href="tel:+923008470572" dir="ltr"><bdi>M. Adnan Khalid</bdi> · <bdi dir="ltr">+92 300 8470572</bdi></a><a href="tel:+923004262838" dir="ltr"><bdi>M. Umar Adnan</bdi> · <bdi dir="ltr">+92 300 4262838</bdi></a><a href="tel:+923218470572" dir="ltr"><bdi>M. Ibrahim Adnan</bdi> · <bdi dir="ltr">+92 321 8470572</bdi></a><a href="mailto:makandsonsconstruction@gmail.com" dir="ltr">makandsonsconstruction@gmail.com</a></div>
           <div><h2 data-i18n="footer.coverage"></h2><p data-i18n="footer.lahore"></p><div class="social-links"><a href="https://www.instagram.com/mak_and_sons_construction" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" class="social-fill"/></svg><span>Instagram</span></a><a href="https://www.facebook.com/share/19TnDXTr2Z/" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 21v-8h3l.5-3H14V8c0-.9.3-1.5 1.6-1.5H18V3.8c-.4-.1-1.3-.2-2.5-.2-2.5 0-4.2 1.5-4.2 4.3V10H8.5v3h2.8v8z"/></svg><span>Facebook</span></a><a href="https://www.threads.com/@mak_and_sons_construction" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21c-5.1 0-8.2-3.3-8.2-8.8C3.8 6.9 7 3 12 3c4.6 0 7.4 2.5 8 7.1l-3 .5C16.7 7.5 15.2 6 12 6c-3.3 0-5.2 2.4-5.2 6.2 0 3.8 1.8 5.8 5.1 5.8 2.3 0 3.6-1 3.6-2.5 0-1.2-.9-1.9-2.5-1.9-1.3 0-2 .5-2 1.3 0 .5.4.8 1 .8.6 0 1.1-.2 1.5-.7l1.5 1.7c-.8.9-1.9 1.3-3.2 1.3-2.1 0-3.5-1.2-3.5-3.1 0-2.4 1.8-4.1 4.6-4.1 3.3 0 5.7 1.8 5.7 4.6 0 3.3-2.6 5.6-6.6 5.6z"/></svg><span>Threads</span></a><a href="https://www.tiktok.com/@makand_sons_construction" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3h3c.2 2.4 1.5 3.8 4 4.1v3.2a9 9 0 0 1-4-1.4v6.3a6 6 0 1 1-6-6c.4 0 .8 0 1.2.1v3.4a3 3 0 1 0 1.8 2.8z"/></svg><span>TikTok</span></a></div></div>
         </div>
         <div class="footer-bottom"><div class="container footer-bottom-inner"><span>© <span data-year></span> <span data-i18n="footer.copyright"></span></span><div><a href="/privacy.html" data-i18n="footer.privacy"></a><a href="/terms.html" data-i18n="footer.terms"></a><button type="button" data-cookie-open data-i18n="footer.cookies"></button></div></div></div>`;
@@ -538,7 +538,7 @@
               <div class="whatsapp-avatar"><span>${c.initials}</span><span class="online-badge"></span></div>
               <div class="whatsapp-contact-info">
                 <strong>${c.name}</strong>
-                <span class="whatsapp-contact-phone">${c.phone}</span>
+                <span class="whatsapp-contact-phone" dir="ltr"><bdi dir="ltr">${c.phone}</bdi></span>
               </div>
               <svg class="whatsapp-arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd"/></svg>
             </a>
@@ -812,6 +812,21 @@
       setTimeout(() => { location.href = "thank-you.html?draft=1"; }, 900);
     });
     form.querySelectorAll("input,select,textarea").forEach(field => field.addEventListener("input", () => errorFor(field, null)));
+    form.querySelectorAll('input[dir="auto"], textarea[dir="auto"]').forEach(field => {
+      const syncDir = () => {
+        const val = field.value.trim();
+        if (!val) {
+          field.style.textAlign = "";
+          field.style.direction = "";
+          return;
+        }
+        const isUrdu = /[\u0600-\u06FF\u0750-\u077F\uFB50-\uFDFF\uFE70-\uFEFF]/.test(val[0]);
+        field.style.textAlign = isUrdu ? "right" : "left";
+        field.style.direction = isUrdu ? "rtl" : "ltr";
+      };
+      field.addEventListener("input", syncDir);
+      if (field.value) syncDir();
+    });
   }
 
   function initThankYou() {

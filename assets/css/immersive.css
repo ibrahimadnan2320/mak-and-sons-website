@@ -452,8 +452,9 @@ details[open] summary::after { transform: translateY(-50%) rotate(45deg); }
 .contact-grid { gap: clamp(30px,6vw,84px); }
 .contact-person { padding-block: 17px; border-color: var(--line); }
 .contact-person small { margin-bottom: 3px; color: var(--warm); letter-spacing: .04em; }
-.contact-person a { overflow-wrap: anywhere; color: var(--ink); }
+.contact-person a { overflow-wrap: anywhere; color: var(--ink); direction: ltr !important; unicode-bidi: isolate !important; }
 .contact-person a:hover { color: var(--warm); }
+a[href^="tel:"], .whatsapp-contact-phone { direction: ltr !important; unicode-bidi: isolate !important; }
 .contact-form { padding: clamp(22px,4vw,46px); }
 .field { gap: 8px; align-content: start; }
 .field label { color: var(--ink); }
@@ -465,6 +466,8 @@ details[open] summary::after { transform: translateY(-50%) rotate(45deg); }
   color: var(--ink);
   transition: border-color var(--motion-fast) ease, box-shadow var(--motion-fast) ease, background var(--motion-fast) ease;
 }
+.field input[dir="auto"], .field textarea[dir="auto"], .field textarea { unicode-bidi: plaintext; }
+.field input[type="email"], .field input[type="tel"] { direction: ltr !important; text-align: left !important; }
 .field input, .field select {
   height: 52px;
   min-height: 52px;
