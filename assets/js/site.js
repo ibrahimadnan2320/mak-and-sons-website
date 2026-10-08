@@ -439,9 +439,19 @@
   const pageName = document.body.dataset.page || "home";
 
   function t(key) { return (copy[currentLang] && copy[currentLang][key]) || copy.en[key] || key; }
-  let currentLang = localStorage.getItem("mak-lang") === "ur" ? "ur" : "en";
-  let currentTheme = sessionStorage.getItem("mak-theme") === "light" ? "light" : "dark";
+  let currentLang = "en";
+  try {
+    currentLang = localStorage.getItem("mak-lang") === "ur" ? "ur" : "en";
+  } catch (_) {}
+  let currentTheme = "dark";
+  try {
+    currentTheme = sessionStorage.getItem("mak-theme") === "light" ? "light" : "dark";
+  } catch (_) {}
   document.documentElement.dataset.theme = currentTheme;
+  document.documentElement.lang = currentLang;
+  document.documentElement.dir = currentLang === "ur" ? "rtl" : "ltr";
+  document.documentElement.classList.add("notranslate");
+  document.documentElement.setAttribute("translate", "no");
   const initialThemeColor = document.querySelector('meta[name="theme-color"]');
   if (initialThemeColor) initialThemeColor.content = currentTheme === "dark" ? "#0b1114" : "#eeebe3";
 
@@ -584,9 +594,11 @@
 
   function applyLanguage(lang) {
     currentLang = lang;
-    localStorage.setItem("mak-lang", lang);
+    try { localStorage.setItem("mak-lang", lang); } catch (_) {}
     document.documentElement.lang = lang === "ur" ? "ur" : "en";
     document.documentElement.dir = lang === "ur" ? "rtl" : "ltr";
+    document.documentElement.classList.add("notranslate");
+    document.documentElement.setAttribute("translate", "no");
     document.querySelectorAll("[data-i18n]").forEach(el => { el.textContent = t(el.dataset.i18n); });
     document.querySelectorAll("[data-i18n-placeholder]").forEach(el => { el.placeholder = t(el.dataset.i18nPlaceholder); });
     document.querySelectorAll("[data-i18n-aria]").forEach(el => { el.setAttribute("aria-label", t(el.dataset.i18nAria)); });
@@ -912,10 +924,26 @@
     });
   }
 
-  document.addEventListener("DOMContentLoaded", () => {
+  function bootstrap() {
     renderShell();
     applyLanguage(currentLang);
     initTheme(); initMobileNavigation(); initCookies(); initForm(); initQuotationWidgets(); initThankYou(); initGallery(); initCopyLink(); initScrollReveal(); initEventTracking();
     document.querySelectorAll("[data-lang-toggle]").forEach(btn => btn.addEventListener("click", () => applyLanguage(currentLang === "en" ? "ur" : "en")));
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", bootstrap);
+  } else {
+    bootstrap();
+  }
+
+  window.addEventListener("pageshow", () => {
+    let savedLang = "en";
+    try {
+      savedLang = localStorage.getItem("mak-lang") === "ur" ? "ur" : "en";
+    } catch (_) {}
+    if (savedLang !== currentLang) {
+      applyLanguage(savedLang);
+    }
   });
 })();
