@@ -441,7 +441,8 @@
   function t(key) { return (copy[currentLang] && copy[currentLang][key]) || copy.en[key] || key; }
   let currentLang = "en";
   try {
-    currentLang = localStorage.getItem("mak-lang") === "ur" ? "ur" : "en";
+    currentLang = (sessionStorage.getItem("mak-lang") || "en") === "ur" ? "ur" : "en";
+    localStorage.removeItem("mak-lang");
   } catch (_) {}
   let currentTheme = "dark";
   try {
@@ -594,7 +595,10 @@
 
   function applyLanguage(lang) {
     currentLang = lang;
-    try { localStorage.setItem("mak-lang", lang); } catch (_) {}
+    try {
+      sessionStorage.setItem("mak-lang", lang);
+      localStorage.removeItem("mak-lang");
+    } catch (_) {}
     document.documentElement.lang = lang === "ur" ? "ur" : "en";
     document.documentElement.dir = lang === "ur" ? "rtl" : "ltr";
     document.documentElement.classList.add("notranslate");
@@ -940,7 +944,7 @@
   window.addEventListener("pageshow", () => {
     let savedLang = "en";
     try {
-      savedLang = localStorage.getItem("mak-lang") === "ur" ? "ur" : "en";
+      savedLang = (sessionStorage.getItem("mak-lang") || "en") === "ur" ? "ur" : "en";
     } catch (_) {}
     if (savedLang !== currentLang) {
       applyLanguage(savedLang);
