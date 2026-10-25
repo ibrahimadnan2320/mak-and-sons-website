@@ -1656,27 +1656,28 @@ body[data-page="home"] .hero-build-scene.scene-unavailable { position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
-  opacity: 0.95;
-  transform: scale(0.96);
+  gap: 20px;
+  opacity: 0.98;
   pointer-events: none;
   user-select: none;
+  text-align: center;
 }
 
 .curtain-brand img {
-  width: 62px;
-  height: 62px;
+  width: clamp(110px, 16vw, 136px);
+  height: clamp(110px, 16vw, 136px);
   object-fit: contain;
-  filter: drop-shadow(0 4px 18px rgba(239, 184, 121, 0.35));
+  filter: drop-shadow(0 8px 36px rgba(239, 184, 121, 0.45));
 }
 
 .curtain-brand-name {
   font-family: var(--serif, Georgia, serif);
-  font-size: 1.12rem;
-  letter-spacing: 0.24em;
+  font-size: clamp(1.85rem, 4.2vw, 2.45rem);
+  letter-spacing: 0.28em;
   font-weight: 700;
   color: #efb879;
   text-transform: uppercase;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.7);
 }
 
 /* Incoming page: curtain immediately covers screen prior to paint */

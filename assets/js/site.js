@@ -957,7 +957,7 @@
       curtain.setAttribute("aria-hidden", "true");
       curtain.innerHTML = `
         <div class="curtain-brand">
-          <img src="/assets/images/brand/crest-transparent.png" alt="" width="62" height="62">
+          <img src="/assets/images/brand/crest-transparent.png" alt="" width="128" height="128">
           <span class="curtain-brand-name">MAK & SONS</span>
         </div>`;
       document.body.prepend(curtain);
