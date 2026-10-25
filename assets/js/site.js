@@ -453,6 +453,12 @@
   document.documentElement.dir = currentLang === "ur" ? "rtl" : "ltr";
   document.documentElement.classList.add("notranslate");
   document.documentElement.setAttribute("translate", "no");
+  try {
+    if (sessionStorage.getItem("mak-transition") === "active") {
+      document.documentElement.classList.add("curtain-active");
+      window.scrollTo(0, 0);
+    }
+  } catch (_) {}
   const initialThemeColor = document.querySelector('meta[name="theme-color"]');
   if (initialThemeColor) initialThemeColor.content = currentTheme === "dark" ? "#0b1114" : "#eeebe3";
 
@@ -943,10 +949,138 @@
     });
   }
 
+  function initPageTransitions() {
+    let curtain = document.querySelector(".page-curtain");
+    if (!curtain) {
+      curtain = document.createElement("div");
+      curtain.className = "page-curtain";
+      curtain.setAttribute("aria-hidden", "true");
+      curtain.innerHTML = `
+        <div class="curtain-brand">
+          <img src="/assets/images/brand/crest-transparent.png" alt="" width="62" height="62">
+          <span class="curtain-brand-name">MAK & SONS</span>
+        </div>`;
+      document.body.prepend(curtain);
+    }
+
+    // Entrance Animation (Wipe Out: 0% -> -100%)
+    const wasTransitioning = sessionStorage.getItem("mak-transition") === "active" || document.documentElement.classList.contains("curtain-active");
+    if (wasTransitioning) {
+      try {
+        sessionStorage.removeItem("mak-transition");
+      } catch (_) {}
+      window.scrollTo(0, 0);
+
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          document.documentElement.classList.remove("curtain-active");
+          curtain.classList.remove("wiping-in");
+          curtain.classList.add("wiping-out");
+
+          const onTransitionEnd = () => {
+            curtain.classList.remove("wiping-out");
+            curtain.style.transform = "translateY(100%)";
+            curtain.style.transition = "none";
+            curtain.removeEventListener("transitionend", onTransitionEnd);
+          };
+          curtain.addEventListener("transitionend", onTransitionEnd);
+          setTimeout(onTransitionEnd, 750);
+        });
+      });
+    }
+
+    // Exit Animation (Wipe In: 100% -> 0%)
+    let isTransitioning = false;
+
+    document.addEventListener("click", event => {
+      const link = event.target.closest("a");
+      if (!link) return;
+
+      if (
+        event.defaultPrevented ||
+        event.button !== 0 ||
+        event.metaKey ||
+        event.ctrlKey ||
+        event.shiftKey ||
+        event.altKey
+      ) return;
+
+      if (link.target && link.target !== "_self") return;
+
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.startsWith("#") || rawHref.startsWith("mailto:") || rawHref.startsWith("tel:") || rawHref.startsWith("javascript:")) {
+        return;
+      }
+
+      if (link.hasAttribute("download") || rawHref.toLowerCase().endsWith(".pdf")) {
+        return;
+      }
+
+      let url;
+      try {
+        url = new URL(link.href, window.location.href);
+      } catch (_) {
+        return;
+      }
+
+      if (url.origin !== window.location.origin) return;
+
+      if (url.pathname === window.location.pathname && url.search === window.location.search) {
+        return;
+      }
+
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        return;
+      }
+
+      if (isTransitioning) {
+        event.preventDefault();
+        return;
+      }
+
+      event.preventDefault();
+      isTransitioning = true;
+
+      curtain.style.transition = "";
+      curtain.classList.remove("wiping-out");
+      curtain.classList.add("wiping-in");
+
+      setTimeout(() => {
+        try {
+          sessionStorage.setItem("mak-transition", "active");
+        } catch (_) {}
+        window.scrollTo(0, 0);
+        window.location.href = url.href;
+      }, 650);
+
+      setTimeout(() => {
+        if (isTransitioning) {
+          isTransitioning = false;
+          curtain.classList.remove("wiping-in");
+          curtain.style.transform = "translateY(100%)";
+        }
+      }, 4000);
+    });
+
+    window.addEventListener("pageshow", () => {
+      try {
+        sessionStorage.removeItem("mak-transition");
+      } catch (_) {}
+      document.documentElement.classList.remove("curtain-active");
+      if (curtain) {
+        curtain.classList.remove("wiping-in", "wiping-out");
+        curtain.style.transform = "translateY(100%)";
+        curtain.style.transition = "none";
+      }
+      isTransitioning = false;
+    });
+  }
+
   function bootstrap() {
     renderShell();
     applyLanguage(currentLang);
     initTheme(); initMobileNavigation(); initCookies(); initForm(); initQuotationWidgets(); initThankYou(); initGallery(); initCopyLink(); initScrollReveal(); initEventTracking();
+    initPageTransitions();
     document.querySelectorAll("[data-lang-toggle]").forEach(btn => btn.addEventListener("click", () => applyLanguage(currentLang === "en" ? "ur" : "en")));
   }
 

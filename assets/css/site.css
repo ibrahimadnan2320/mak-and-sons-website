@@ -1627,3 +1627,81 @@ body[data-page="home"] .hero-build-scene.scene-unavailable { position: relative;
   opacity: 0.8;
   text-decoration: underline;
 }
+
+/* ==========================================================================
+   High-End Curtain Wipe Page Transition (Option A)
+   Timing: cubic-bezier(0.76, 0, 0.24, 1) over 0.7s
+   ========================================================================== */
+.page-curtain {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  z-index: 99999;
+  background: linear-gradient(165deg, #0d171c 0%, #06090c 100%);
+  border-top: 2px solid rgba(239, 184, 121, 0.4);
+  box-shadow: 0 -12px 48px rgba(0, 0, 0, 0.85);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  transform: translateY(100%);
+  pointer-events: none;
+  will-change: transform;
+}
+
+.curtain-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  opacity: 0.95;
+  transform: scale(0.96);
+  pointer-events: none;
+  user-select: none;
+}
+
+.curtain-brand img {
+  width: 62px;
+  height: 62px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 18px rgba(239, 184, 121, 0.35));
+}
+
+.curtain-brand-name {
+  font-family: var(--serif, Georgia, serif);
+  font-size: 1.12rem;
+  letter-spacing: 0.24em;
+  font-weight: 700;
+  color: #efb879;
+  text-transform: uppercase;
+}
+
+/* Incoming page: curtain immediately covers screen prior to paint */
+html.curtain-active .page-curtain {
+  transform: translateY(0%) !important;
+  transition: none !important;
+  pointer-events: auto !important;
+}
+
+/* Wipe-In: 100% -> 0% */
+.page-curtain.wiping-in {
+  transform: translateY(0%) !important;
+  transition: transform 0.7s cubic-bezier(0.76, 0, 0.24, 1) !important;
+  pointer-events: auto !important;
+}
+
+/* Wipe-Out: 0% -> -100% */
+.page-curtain.wiping-out {
+  transform: translateY(-100%) !important;
+  transition: transform 0.7s cubic-bezier(0.76, 0, 0.24, 1) !important;
+  pointer-events: auto !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-curtain {
+    display: none !important;
+  }
+}
